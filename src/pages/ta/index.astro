@@ -1,0 +1,122 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site, practiceAreas, advocates } from '../../site.config';
+import { url } from '../../lib/url';
+import { faqSchema } from '../../lib/schema';
+
+const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
+const towns: Record<string, string> = {
+  Coimbatore: 'கோயம்புத்தூர்',
+  Tiruppur: 'திருப்பூர்',
+  Erode: 'ஈரோடு',
+  Salem: 'சேலம்',
+  Namakkal: 'நாமக்கல்',
+  Karur: 'கரூர்',
+};
+const faq = [
+  {
+    q: 'காசோலை திரும்பி வந்தால் என்ன செய்ய வேண்டும்?',
+    a: 'வங்கியின் திருப்பு அறிக்கை கிடைத்த 30 நாட்களுக்குள் எழுத்து மூலம் கோரிக்கை அறிவிப்பு அனுப்ப வேண்டும். அறிவிப்பு கிடைத்த 15 நாட்களுக்குள் பணம் செலுத்தப்படாவிட்டால், அதன் பின் ஒரு மாதத்திற்குள் மாற்றுமுறை ஆவணச் சட்டம் பிரிவு 138-ன் கீழ் புகார் தாக்கல் செய்யலாம்.',
+  },
+  {
+    q: 'நிலம் வாங்கும் முன் எந்த ஆவணங்களைச் சரிபார்க்க வேண்டும்?',
+    a: 'குறைந்தது 30 ஆண்டுகளுக்கான வில்லங்கச் சான்று (EC), விற்பவர் பெயரில் பட்டா, சிட்டா, FMB வரைபடம், அனைத்து மூல ஆவணங்கள், மனைப்பிரிவு அங்கீகாரம் ஆகியவற்றைச் சரிபார்க்க வேண்டும்.',
+  },
+  {
+    q: 'பரஸ்பர சம்மத விவாகரத்துக்கு எவ்வளவு காலம் ஆகும்?',
+    a: 'இந்து திருமணச் சட்டம் பிரிவு 13B-ன் கீழ், ஓராண்டு தனித்து வாழ்ந்த தம்பதியர் கூட்டாக மனு தாக்கல் செய்யலாம். முதல் மற்றும் இரண்டாம் மனுக்களுக்கு இடையே ஆறு மாத இடைவெளி உண்டு; தகுந்த சூழலில் நீதிமன்றம் அதைத் தள்ளுபடி செய்யலாம்.',
+  },
+  {
+    q: 'காவல் நிலையத்தில் FIR பதிவு செய்ய மறுத்தால்?',
+    a: 'பாரதிய நாகரிக் சுரக்ஷா சன்ஹிதா பிரிவு 173(4)-ன் கீழ் காவல் கண்காணிப்பாளருக்கு எழுத்து மூலம் புகார் அனுப்பலாம். அதன்பின் பிரிவு 175(3)-ன் கீழ் பிரமாணப் பத்திரத்துடன் நீதித்துறை நடுவரிடம் மனு செய்யலாம்.',
+  },
+];
+const townsTa = site.areaServed.map((t) => towns[t] ?? t);
+---
+
+<Base
+  title={`${site.nameTa} | கொங்கு நாட்டு வழக்கறிஞர்கள்`}
+  description={site.descriptionTa}
+  path="/ta/"
+  lang="ta"
+  alternates={{ en: '/', ta: '/ta/' }}
+  schema={[faqSchema(faq)]}
+>
+  <section class="hero wrap">
+    <h1 class="wordmark">
+      நம்ம கொங்கு
+      <span class="wordmark-en">சட்ட ஆலோசகர்கள்</span>
+    </h1>
+    <p class="hero-lede">
+      கொங்கு நாட்டில் செயல்படும் வழக்கறிஞர்கள் குழு. {townsTa.slice(0, 3).join(', ')} நீதிமன்றங்களிலும் சென்னை
+      உயர் நீதிமன்றத்திலும் சிவில், சொத்து, குடும்ப, குற்றவியல், காசோலை மோசடி மற்றும் வணிக வழக்குகளைக் கையாளுகிறோம்.
+    </p>
+    <div class="actions">
+      <a class="btn btn-solid" href={tel}>அழைக்க {site.phone}</a>
+      <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener">வாட்ஸ்அப்பில் தொடர்பு கொள்ள</a>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="practice">
+    <h2 id="practice">வழக்கு வகைகள்</h2>
+    <ul class="ledger">
+      {
+        practiceAreas.map((p) => (
+          <li>
+            <h3>
+              <a href={url(`/practice-areas/${p.slug}/`)}>{p.nameTa}</a>
+              <span class="ta" lang="en">{p.name}</span>
+            </h3>
+            <p lang="en">{p.summary}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section wrap" aria-labelledby="advocates">
+    <h2 id="advocates">வழக்கறிஞர்கள்</h2>
+    <ul class="roll">
+      {
+        advocates.map((a) => (
+          <li>
+            <a href={url(`/advocates/${a.slug}/`)}>{a.nameTa}</a>
+            <span class="meta">பதிவு எண் {a.enrolment}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section wrap" aria-labelledby="office">
+    <h2 id="office">அலுவலகம்</h2>
+    <dl class="facts">
+      <dt>முகவரி</dt>
+      <dd>
+        {site.address.street}, {site.address.locality}, {site.address.city}, {site.address.district} மாவட்டம்,
+        தமிழ்நாடு {site.address.postalCode}
+      </dd>
+      <dt>நேரம்</dt>
+      <dd>{site.hours.map((h) => `${h.daysTa}, ${h.opens} முதல் ${h.closes} வரை`).join('; ')}</dd>
+      <dt>தொலைபேசி</dt>
+      <dd><a href={tel}>{site.phone}</a></dd>
+      <dt>மின்னஞ்சல்</dt>
+      <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+    </dl>
+    <a href={site.mapUrl} rel="noopener">கூகுள் வரைபடத்தில் பார்க்க</a>
+  </section>
+
+  <section class="section wrap" aria-labelledby="faq-ta">
+    <h2 id="faq-ta">அடிக்கடி கேட்கப்படும் கேள்விகள்</h2>
+    <div class="faq">
+      {
+        faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { advocates, practiceBySlug } from '../../site.config';
+import { url } from '../../lib/url';
+import { breadcrumbSchema, personSchema } from '../../lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Advocates', path: '/advocates/' },
+];
+---
+
+<Base
+  title="Advocates"
+  description="The advocates of Namma Kongu Law Associates, with their enrolment details, qualifications, courts and areas of practice."
+  path="/advocates/"
+  schema={[breadcrumbSchema(crumbs, Astro.site), ...advocates.map((a) => personSchema(a, Astro.site))]}
+>
+  <Crumbs items={crumbs} />
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Advocates</h1>
+      <p>Each advocate is enrolled with the Bar Council of Tamil Nadu and Puducherry.</p>
+    </header>
+    <ul class="roll">
+      {
+        advocates.map((a) => (
+          <li>
+            <a href={url(`/advocates/${a.slug}/`)}>{a.name}</a>
+            <span class="meta">{a.role}, enrolled {a.enrolledYear}</span>
+            <span class="meta">{a.qualifications.join(', ')}</span>
+            <span class="meta">
+              {a.practiceAreas.map((s) => practiceBySlug(s)?.name).filter(Boolean).join(', ')}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>

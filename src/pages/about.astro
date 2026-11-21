@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import { site, advocates, practiceAreas } from '../site.config';
+import { url } from '../lib/url';
+import { breadcrumbSchema } from '../lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'About the firm', path: '/about/' },
+];
+---
+
+<Base
+  title="About the firm"
+  description={`About ${site.name}: who the associates are, where they practise and the courts they appear before.`}
+  path="/about/"
+  schema={[breadcrumbSchema(crumbs, Astro.site)]}
+>
+  <Crumbs items={crumbs} />
+  <article class="wrap">
+    <header class="page-head">
+      <h1>About the firm</h1>
+    </header>
+    <div class="prose">
+      <p>
+        {site.name} (<span lang="ta">{site.nameTa}</span>) is a group of {advocates.length} advocates based in
+        {site.address.city}, {site.address.district} District, Tamil Nadu. Each advocate is enrolled with the Bar
+        Council of Tamil Nadu and Puducherry.
+      </p>
+      <p>
+        The associates practise in {practiceAreas.map((p) => p.name.toLowerCase()).join(', ')}. They work in Tamil and
+        English.
+      </p>
+      <h2>Where we practise</h2>
+      <p>Towns: {site.areaServed.join(', ')}.</p>
+      <ul>{site.courts.map((c) => <li>{c}</li>)}</ul>
+      <h2>Advocates</h2>
+      <ul>
+        {advocates.map((a) => <li><a href={url(`/advocates/${a.slug}/`)}>{a.name}</a>, {a.role}, enrolment {a.enrolment}</li>)}
+      </ul>
+    </div>
+  </article>
+</Base>

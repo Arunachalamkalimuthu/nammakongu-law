@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import { site } from '../site.config';
+import { breadcrumbSchema } from '../lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Disclaimer', path: '/disclaimer/' },
+];
+---
+
+<Base
+  title="Disclaimer"
+  description="Bar Council of India disclaimer for the website of Namma Kongu Law Associates."
+  path="/disclaimer/"
+  schema={[breadcrumbSchema(crumbs, Astro.site)]}
+>
+  <Crumbs items={crumbs} />
+  <article class="wrap prose">
+    <h1>Disclaimer</h1>
+    <p>
+      The Bar Council of India does not permit advocates to solicit work or advertise. This website gives
+      information about {site.name} and its advocates as permitted by Rule 36 of the Bar Council of India Rules:
+      names, contact details, enrolment, qualifications and areas of practice.
+    </p>
+    <p>By using this website you acknowledge that:</p>
+    <ul>
+      <li>there has been no advertisement, personal communication, solicitation, invitation or inducement of any kind by the firm or any of its members to solicit work through this website;</li>
+      <li>you wish to gain more information about the firm for your own information and use;</li>
+      <li>the information on this website is provided only on your request, and any material you download is at your own choice;</li>
+      <li>the guides and other content are general information and are not legal advice;</li>
+      <li>using the website, or contacting the firm through it, does not create an advocate–client relationship.</li>
+    </ul>
+    <p>
+      The firm is not liable for any action taken on the basis of information on this website. Laws change, so
+      confirm the current position with an advocate before acting.
+    </p>
+  </article>
+</Base>

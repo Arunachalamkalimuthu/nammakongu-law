@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { practiceAreas } from '../../site.config';
+import { url } from '../../lib/url';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Practice areas', path: '/practice-areas/' },
+];
+---
+
+<Base
+  title="Practice areas"
+  description="Civil and property, family, criminal, cheque bounce, commercial and consumer matters handled by Namma Kongu Law Associates in Kongu Nadu, Tamil Nadu."
+  path="/practice-areas/"
+  schema={[breadcrumbSchema(crumbs, Astro.site)]}
+>
+  <Crumbs items={crumbs} />
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Practice areas</h1>
+      <p>The kinds of matters the associates handle, and the laws they arise under.</p>
+    </header>
+    <ul class="ledger">
+      {
+        practiceAreas.map((p) => (
+          <li>
+            <h2 style="font-size:1.25rem;margin:0">
+              <a href={url(`/practice-areas/${p.slug}/`)}>{p.name}</a>
+              <span class="ta" lang="ta">{p.nameTa}</span>
+            </h2>
+            <p>{p.summary}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>

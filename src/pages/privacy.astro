@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import { site } from '../site.config';
+import { breadcrumbSchema } from '../lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Privacy', path: '/privacy/' },
+];
+---
+
+<Base
+  title="Privacy"
+  description="How the Namma Kongu Law Associates website handles visitor information."
+  path="/privacy/"
+  schema={[breadcrumbSchema(crumbs, Astro.site)]}
+>
+  <Crumbs items={crumbs} />
+  <article class="wrap prose">
+    <h1>Privacy</h1>
+    <p>This website does not use analytics, advertising cookies or contact forms. It does not collect personal information from visitors.</p>
+    <p>
+      Your browser stores one small item locally to remember that you accepted the disclaimer, so it is not shown again on
+      every page. Fonts are loaded from Google Fonts, which receives your IP address when the page loads.
+    </p>
+    <p>
+      If you call, email or message the firm, the details you share are used only to respond to you and are handled under
+      the advocates' duty of confidentiality and the Digital Personal Data Protection Act, 2023.
+    </p>
+    <p>Questions: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  </article>
+</Base>

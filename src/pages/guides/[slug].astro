@@ -1,0 +1,75 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { advocates, practiceBySlug, site } from '../../site.config';
+import { url } from '../../lib/url';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((g) => ({ params: { slug: g.id }, props: { g } }));
+}
+
+const { g } = Astro.props;
+const { Content } = await render(g);
+const d = g.data;
+const reviewer = advocates.find((a) => a.slug === d.reviewer);
+const area = practiceBySlug(d.practiceArea);
+const path = `/guides/${g.id}/`;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Legal guides', path: '/guides/' },
+  { name: d.title, path },
+];
+const fmt = (dt: Date) => dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+const schema = [
+  breadcrumbSchema(crumbs, Astro.site),
+  articleSchema(
+    { title: d.title, description: d.description, path, published: d.published, updated: d.updated, reviewer },
+    Astro.site,
+  ),
+  ...(d.faq.length ? [faqSchema(d.faq)] : []),
+];
+const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
+---
+
+<Base title={d.title} description={d.description} path={path} schema={schema} type="article">
+  <Crumbs items={crumbs} />
+  <article class="wrap">
+    <header class="page-head" style="padding-bottom:1rem">
+      <h1 style="max-width:24ch">{d.title}</h1>
+      <p class="byline">
+        {reviewer && <>Reviewed by <a href={url(`/advocates/${reviewer.slug}/`)}>{reviewer.name}</a>. </>}
+        Updated <time datetime={d.updated.toISOString().slice(0, 10)}>{fmt(d.updated)}</time>.
+      </p>
+    </header>
+
+    <div class="answer"><p><strong>Short answer.</strong> {d.answer}</p></div>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {
+      d.faq.length > 0 && (
+        <section class="section faq" aria-labelledby="faq">
+          <h2 id="faq">Common questions</h2>
+          {d.faq.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </section>
+      )
+    }
+
+    <aside class="note">
+      <p>
+        This guide is general information about the law in Tamil Nadu as of {fmt(d.updated)}. It is not legal advice
+        about your situation. {area && <>For a matter like this, see <a href={url(`/practice-areas/${area.slug}/`)}>{area.name.toLowerCase()}</a> or call <a href={tel}>{site.phone}</a>.</>}
+      </p>
+    </aside>
+  </article>
+</Base>

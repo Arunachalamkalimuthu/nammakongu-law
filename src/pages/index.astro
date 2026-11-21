@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { site, practiceAreas, advocates } from '../site.config';
+import { url } from '../lib/url';
+
+const guides = (await getCollection('guides')).sort((a, b) => +b.data.updated - +a.data.updated);
+const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
+---
+
+<Base
+  title={`${site.name}: advocates in Kongu Nadu, Tamil Nadu`}
+  description={site.description}
+  path="/"
+  alternates={{ en: '/', ta: '/ta/' }}
+>
+  <section class="hero wrap">
+    <h1 class="wordmark">
+      <span lang="ta">நம்ம கொங்கு</span>
+      <span class="wordmark-en">Law Associates</span>
+    </h1>
+    <p class="hero-lede">
+      A group of advocates in Kongu Nadu. We handle civil, property, family, criminal, cheque bounce and
+      commercial matters before the courts of {site.areaServed.slice(0, 3).join(', ')} and the Madras High Court.
+    </p>
+    <div class="actions">
+      <a class="btn btn-solid" href={tel}>Call {site.phone}</a>
+      <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener">Message on WhatsApp</a>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="practice">
+    <div class="section-head">
+      <h2 id="practice">Practice areas</h2>
+      <a href={url('/practice-areas/')}>All practice areas</a>
+    </div>
+    <ul class="ledger">
+      {
+        practiceAreas.map((p) => (
+          <li>
+            <h3>
+              <a href={url(`/practice-areas/${p.slug}/`)}>{p.name}</a>
+              <span class="ta" lang="ta">{p.nameTa}</span>
+            </h3>
+            <p>{p.summary}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section wrap" aria-labelledby="guides">
+    <div class="section-head">
+      <h2 id="guides">Legal guides</h2>
+      <a href={url('/guides/')}>All guides</a>
+    </div>
+    <ul class="guides">
+      {
+        guides.map((g) => (
+          <li>
+            <a href={url(`/guides/${g.id}/`)}>{g.data.title}</a>
+            <p>{g.data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section wrap" aria-labelledby="advocates">
+    <div class="section-head">
+      <h2 id="advocates">Advocates</h2>
+      <a href={url('/advocates/')}>All advocates</a>
+    </div>
+    <ul class="roll">
+      {
+        advocates.map((a) => (
+          <li>
+            <a href={url(`/advocates/${a.slug}/`)}>{a.name}</a>
+            <span class="meta">{a.role}</span>
+            <span class="meta">Enrolment {a.enrolment}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section wrap" aria-labelledby="office">
+    <h2 id="office">Office</h2>
+    <dl class="facts">
+      <dt>Address</dt>
+      <dd>
+        {site.address.street}, {site.address.locality}, {site.address.city}, {site.address.district} District,
+        {site.address.state} {site.address.postalCode}
+      </dd>
+      <dt>Hours</dt>
+      <dd>{site.hours.map((h) => `${h.days}, ${h.opens} to ${h.closes}`).join('; ')}</dd>
+      <dt>Phone</dt>
+      <dd><a href={tel}>{site.phone}</a></dd>
+      <dt>Email</dt>
+      <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+      <dt>Languages</dt>
+      <dd>Tamil, English</dd>
+    </dl>
+    <a href={site.mapUrl} rel="noopener">Open in Google Maps</a>
+  </section>
+</Base>

@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { practiceAreas, advocates, site, type PracticeArea } from '../../site.config';
+import { url, absolute } from '../../lib/url';
+import { breadcrumbSchema, firmId } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return practiceAreas.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+
+const { p } = Astro.props as { p: PracticeArea };
+const all = await getCollection('guides');
+const guides = all.filter((g) => p.guides.includes(g.id) || g.data.practiceArea === p.slug);
+const team = advocates.filter((a) => a.practiceAreas.includes(p.slug));
+const path = `/practice-areas/${p.slug}/`;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Practice areas', path: '/practice-areas/' },
+  { name: p.name, path },
+];
+const service = {
+  '@type': 'Service',
+  name: `${p.name} lawyers in Kongu Nadu`,
+  alternateName: p.nameTa,
+  description: p.summary,
+  url: absolute(path, Astro.site),
+  provider: { '@id': firmId(Astro.site) },
+  areaServed: site.areaServed.map((name) => ({ '@type': 'City', name })),
+  serviceType: p.name,
+};
+---
+
+<Base
+  title={`${p.name} advocates in ${site.areaServed.slice(0, 3).join(', ')}`}
+  description={`${p.summary} Namma Kongu Law Associates, Kongu Nadu, Tamil Nadu.`}
+  path={path}
+  schema={[breadcrumbSchema(crumbs, Astro.site), service]}
+>
+  <Crumbs items={crumbs} />
+  <article class="wrap">
+    <header class="page-head">
+      <h1>{p.name}</h1>
+      <p><span lang="ta">{p.nameTa}</span></p>
+      <p>{p.summary}</p>
+    </header>
+
+    <div class="prose">
+      <h2>Matters we handle</h2>
+      <ul>{p.matters.map((m) => <li>{m}</li>)}</ul>
+
+      <h2>Courts</h2>
+      <p>
+        Cases in this area are heard before the courts in {site.areaServed.join(', ')}, and on appeal or
+        revision before the Madras High Court.
+      </p>
+    </div>
+
+    {
+      guides.length > 0 && (
+        <section class="section" aria-labelledby="related">
+          <h2 id="related">Related guides</h2>
+          <ul class="guides">
+            {guides.map((g) => (
+              <li>
+                <a href={url(`/guides/${g.id}/`)}>{g.data.title}</a>
+                <p>{g.data.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      team.length > 0 && (
+        <section class="section" aria-labelledby="team">
+          <h2 id="team">Advocates in this area</h2>
+          <ul class="roll">
+            {team.map((a) => (
+              <li>
+                <a href={url(`/advocates/${a.slug}/`)}>{a.name}</a>
+                <span class="meta">Enrolment {a.enrolment}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </article>
+</Base>

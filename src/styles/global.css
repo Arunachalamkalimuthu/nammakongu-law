@@ -1,0 +1,609 @@
+/* Namma Kongu Law Associates
+   Palette: handloom indigo + Erode turmeric on cool cotton white.
+   Motif: the woven "kara" border of a Kongu cotton veshti, used only as the
+   page's top and bottom edge. Everything else stays quiet. */
+
+:root {
+  --ink: #1b2447;
+  --indigo: #2c3a78;
+  --turmeric: #c8901a;
+  --turmeric-deep: #8a5c00; /* turmeric that passes AA as text on paper */
+  --paper: #f8f9fb;
+  --surface: #ffffff;
+  --muted: #4f5770;
+  --line: #d6dae6;
+  --tint: #eceff7;
+
+  --font-ui: 'Anek Tamil', 'Noto Sans Tamil', system-ui, sans-serif;
+  --font-text: 'Source Serif 4', 'Anek Tamil', Georgia, serif;
+
+  --measure: 66ch;
+  --page: 72rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --ink: #e8ebf5;
+    --indigo: #a9b6ef;
+    --turmeric: #e3ab3c;
+    --turmeric-deep: #e3ab3c;
+    --paper: #121630;
+    --surface: #181d3b;
+    --muted: #b3b9cf;
+    --line: #2e355c;
+    --tint: #1d2347;
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  font-optical-sizing: auto;
+}
+
+:lang(ta) body,
+body:lang(ta) {
+  font-family: var(--font-ui);
+  line-height: 1.8;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--indigo);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--turmeric);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-stretch: 108%;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+h1 {
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
+}
+h2 {
+  font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+}
+h3 {
+  font-size: 1.3rem;
+}
+
+p,
+ul,
+ol {
+  margin: 0 0 1em;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  background: var(--surface);
+  padding: 0.5rem 1rem;
+  z-index: 100;
+}
+
+/* The veshti border: two turmeric threads either side of an indigo band. */
+.kara {
+  height: 14px;
+  background: linear-gradient(
+    to bottom,
+    var(--turmeric) 0 2px,
+    transparent 2px 4px,
+    var(--ink) 4px 10px,
+    transparent 10px 12px,
+    var(--turmeric) 12px 14px
+  );
+}
+
+.wrap {
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.prose {
+  max-width: var(--measure);
+}
+.prose h2 {
+  margin-top: 2em;
+}
+.prose h3 {
+  margin-top: 1.6em;
+}
+.prose li + li {
+  margin-top: 0.35em;
+}
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1rem;
+  margin: 1.5em 0;
+  display: block;
+  overflow-x: auto;
+}
+.prose th,
+.prose td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.6em 0.8em;
+  border-bottom: 1px solid var(--line);
+}
+.prose th {
+  font-family: var(--font-ui);
+  font-weight: 600;
+}
+
+/* Header */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 2rem;
+  padding-block: 0.9rem;
+}
+.brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  line-height: 1.05;
+  margin-right: auto;
+}
+.brand-ta {
+  font-weight: 700;
+  font-size: 1.35rem;
+}
+.brand-en {
+  font-size: 0.95rem;
+  font-stretch: 90%;
+  color: var(--muted);
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  font-family: var(--font-ui);
+  font-size: 1.02rem;
+}
+.nav a {
+  color: var(--ink);
+  text-decoration: none;
+  padding-block: 0.3rem;
+  border-bottom: 2px solid transparent;
+}
+.nav a:hover,
+.nav a[aria-current='page'] {
+  border-bottom-color: var(--turmeric);
+}
+
+/* Buttons */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 0.7em 1.2em;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  background: transparent;
+  cursor: pointer;
+}
+.btn-solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn:hover {
+  background: var(--tint);
+  color: var(--ink);
+}
+.btn-solid:hover {
+  background: var(--indigo);
+  border-color: var(--indigo);
+  color: var(--paper);
+}
+
+/* Hero */
+.hero {
+  padding-block: clamp(2.5rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
+}
+.wordmark {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-stretch: 100%;
+  font-size: clamp(3rem, 13vw, 8.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+.wordmark-en {
+  display: block;
+  font-weight: 400;
+  font-stretch: 112%;
+  font-size: clamp(1.4rem, 4vw, 2.6rem);
+  letter-spacing: 0;
+  color: var(--muted);
+  margin-top: 0.35em;
+}
+.hero-lede {
+  max-width: 44ch;
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  margin: 1.75rem 0 2rem;
+}
+
+/* Sections */
+.section {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  border-top: 1px solid var(--line);
+}
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  margin-bottom: 1.75rem;
+}
+.section-head h2 {
+  margin: 0;
+}
+
+/* Practice areas as a ledger: name on the left, what it covers on the right */
+.ledger {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 2px solid var(--ink);
+}
+.ledger > li {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) 2fr;
+  gap: 0.25rem 2rem;
+  padding-block: 1.1rem;
+  border-bottom: 1px solid var(--line);
+}
+.ledger h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.ledger h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.ledger h3 a:hover {
+  text-decoration: underline;
+}
+.ledger .ta {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+.ledger p {
+  margin: 0;
+}
+@media (max-width: 40rem) {
+  .ledger > li {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Advocate roll: reads like the Bar roll, with enrolment numbers */
+.roll {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 0 2rem;
+}
+.roll > li {
+  padding-block: 1rem;
+  border-top: 1px solid var(--line);
+}
+.roll a {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.roll a:hover {
+  text-decoration: underline;
+}
+.roll .meta {
+  display: block;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+/* Guides list */
+.guides {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.guides > li {
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--line);
+  max-width: var(--measure);
+}
+.guides a {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+.guides p {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+}
+
+/* Facts table for profiles and contact */
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.6rem 1.5rem;
+  margin: 0 0 2rem;
+}
+.facts dt {
+  font-family: var(--font-ui);
+  font-weight: 600;
+}
+.facts dd {
+  margin: 0;
+}
+@media (max-width: 30rem) {
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+  .facts dd {
+    margin-bottom: 0.7rem;
+  }
+}
+
+.crumbs {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: var(--muted);
+  padding-top: 1.5rem;
+}
+.crumbs ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0;
+  margin: 0;
+}
+.crumbs li + li::before {
+  content: '/';
+  margin-right: 0.4rem;
+  color: var(--line);
+}
+
+.page-head {
+  padding-block: 1.5rem 2rem;
+}
+.page-head p {
+  max-width: 52ch;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.note {
+  max-width: var(--measure);
+  border-left: 4px solid var(--turmeric);
+  background: var(--tint);
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  margin: 2rem 0;
+}
+.note p:last-child {
+  margin: 0;
+}
+
+.answer {
+  font-size: 1.2rem;
+  max-width: var(--measure);
+  padding: 1.1rem 1.3rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+.answer p:last-child {
+  margin: 0;
+}
+
+.faq details {
+  border-top: 1px solid var(--line);
+  padding-block: 0.8rem;
+  max-width: var(--measure);
+}
+.faq summary {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1.12rem;
+  cursor: pointer;
+}
+.faq details p {
+  margin: 0.6rem 0 0;
+}
+
+.byline {
+  font-family: var(--font-ui);
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 4rem;
+  background: var(--surface);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+}
+.site-footer .wrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 2rem;
+  padding-block: 2.5rem;
+}
+.site-footer h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.site-footer li + li {
+  margin-top: 0.3rem;
+}
+.site-footer address {
+  font-style: normal;
+}
+.legal {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.92rem;
+  padding-block: 1.25rem 2rem;
+}
+.legal p {
+  max-width: 80ch;
+  margin: 0;
+}
+
+/* Bar Council disclaimer gate */
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgb(18 22 48 / 0.72);
+}
+.gate[data-open] {
+  display: flex;
+}
+.gate-box {
+  background: var(--surface);
+  color: var(--ink);
+  max-width: 38rem;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.gate-box .inner {
+  padding: 1.5rem clamp(1.25rem, 4vw, 2rem) 1.75rem;
+}
+.gate-box h2 {
+  font-size: 1.4rem;
+}
+.gate-box ul {
+  padding-left: 1.2rem;
+}
+
+.placeholder-banner {
+  background: var(--turmeric);
+  color: #1b2447;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 0.4rem 1rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero .wordmark {
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.12em);
+    }
+  }
+}
+
+@media print {
+  .site-header nav,
+  .gate,
+  .actions,
+  .placeholder-banner {
+    display: none !important;
+  }
+}
+
+/* English text inside Tamil pages keeps the English reading face */
+body:lang(ta) p[lang='en'] {
+  font-family: var(--font-text);
+  line-height: 1.65;
+}

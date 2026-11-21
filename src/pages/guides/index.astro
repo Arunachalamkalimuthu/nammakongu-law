@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { url } from '../../lib/url';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const guides = (await getCollection('guides')).sort((a, b) => +b.data.updated - +a.data.updated);
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Legal guides', path: '/guides/' },
+];
+---
+
+<Base
+  title="Legal guides"
+  description="Plain-language guides to common legal questions in Tamil Nadu: cheque bounce, divorce, buying land and police complaints."
+  path="/guides/"
+  schema={[breadcrumbSchema(crumbs, Astro.site)]}
+>
+  <Crumbs items={crumbs} />
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Legal guides</h1>
+      <p>General information on questions people in Tamil Nadu often ask. For advice on your own matter, speak to an advocate.</p>
+    </header>
+    <ul class="guides">
+      {
+        guides.map((g) => (
+          <li>
+            <a href={url(`/guides/${g.id}/`)}>{g.data.title}</a>
+            <p>{g.data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>

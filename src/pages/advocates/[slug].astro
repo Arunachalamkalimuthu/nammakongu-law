@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { advocates, practiceBySlug, site, type Advocate } from '../../site.config';
+import { url } from '../../lib/url';
+import { breadcrumbSchema, personSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return advocates.map((a) => ({ params: { slug: a.slug }, props: { a } }));
+}
+
+const { a } = Astro.props as { a: Advocate };
+const reviewed = (await getCollection('guides')).filter((g) => g.data.reviewer === a.slug);
+const path = `/advocates/${a.slug}/`;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Advocates', path: '/advocates/' },
+  { name: a.name, path },
+];
+---
+
+<Base
+  title={`${a.name}, ${a.role}`}
+  description={`${a.name}, ${a.role.toLowerCase()} at ${site.name}. Enrolment ${a.enrolment}. ${a.qualifications.join(', ')}.`}
+  path={path}
+  schema={[breadcrumbSchema(crumbs, Astro.site), personSchema(a, Astro.site)]}
+>
+  <Crumbs items={crumbs} />
+  <article class="wrap">
+    <header class="page-head">
+      <h1>{a.name}</h1>
+      <p><span lang="ta">{a.nameTa}</span>, {a.role}</p>
+    </header>
+    <dl class="facts">
+      <dt>Enrolment</dt>
+      <dd>{a.enrolment}, Bar Council of Tamil Nadu and Puducherry ({a.enrolledYear})</dd>
+      <dt>Qualifications</dt>
+      <dd>{a.qualifications.join(', ')}</dd>
+      <dt>Courts</dt>
+      <dd>{a.courts.join(', ')}</dd>
+      <dt>Practice areas</dt>
+      <dd>
+        {
+          a.practiceAreas.map((s, i) => {
+            const p = practiceBySlug(s);
+            return p ? (
+              <>
+                {i > 0 && ', '}
+                <a href={url(`/practice-areas/${p.slug}/`)}>{p.name}</a>
+              </>
+            ) : null;
+          })
+        }
+      </dd>
+      <dt>Languages</dt>
+      <dd>{a.languages.join(', ')}</dd>
+    </dl>
+    <div class="prose"><p>{a.bio}</p></div>
+    {
+      reviewed.length > 0 && (
+        <section class="section" aria-labelledby="reviewed">
+          <h2 id="reviewed">Guides reviewed</h2>
+          <ul class="guides">
+            {reviewed.map((g) => (
+              <li>
+                <a href={url(`/guides/${g.id}/`)}>{g.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </article>
+</Base>
