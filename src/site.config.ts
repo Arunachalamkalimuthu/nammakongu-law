@@ -19,6 +19,7 @@ export type Advocate = {
   practiceAreas: string[]; // slugs from practiceAreas below
   languages: string[];
   bio: string; // factual: education, enrolment, courts, areas. No self-praise.
+  photo?: string; // e.g. '/advocates/name.jpg' in public/advocates/, square, at least 400px
 };
 
 export type PracticeArea = {

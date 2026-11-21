@@ -29,8 +29,12 @@ const crumbs = [
   <Crumbs items={crumbs} />
   <article class="wrap">
     <header class="page-head">
+      <span class="avatar" style="width:6rem;height:6rem;font-size:1.6rem;margin-bottom:1.25rem" aria-hidden="true">
+        {a.photo ? <img src={url(a.photo)} alt="" width="96" height="96" /> : 'NK'}
+      </span>
       <h1>{a.name}</h1>
-      <p><span lang="ta">{a.nameTa}</span>, {a.role}</p>
+      <p class="ta-name" lang="ta">{a.nameTa}</p>
+      <p>{a.role}</p>
     </header>
     <dl class="facts">
       <dt>Enrolment</dt>
@@ -61,7 +65,7 @@ const crumbs = [
       reviewed.length > 0 && (
         <section class="section" aria-labelledby="reviewed">
           <h2 id="reviewed">Guides reviewed</h2>
-          <ul class="guides">
+          <ul class="guides guides-single">
             {reviewed.map((g) => (
               <li>
                 <a href={url(`/guides/${g.id}/`)}>{g.data.title}</a>

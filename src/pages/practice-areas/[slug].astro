@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
+import Icon from '../../components/Icon.astro';
 import { practiceAreas, advocates, site, type PracticeArea } from '../../site.config';
 import { url, absolute } from '../../lib/url';
 import { breadcrumbSchema, firmId } from '../../lib/schema';
@@ -41,8 +42,9 @@ const service = {
   <Crumbs items={crumbs} />
   <article class="wrap">
     <header class="page-head">
+      <span class="page-icon"><Icon name={p.slug as any} size={30} /></span>
       <h1>{p.name}</h1>
-      <p><span lang="ta">{p.nameTa}</span></p>
+      <p class="ta-name" lang="ta">{p.nameTa}</p>
       <p>{p.summary}</p>
     </header>
 
@@ -61,7 +63,7 @@ const service = {
       guides.length > 0 && (
         <section class="section" aria-labelledby="related">
           <h2 id="related">Related guides</h2>
-          <ul class="guides">
+          <ul class="guides guides-single">
             {guides.map((g) => (
               <li>
                 <a href={url(`/guides/${g.id}/`)}>{g.data.title}</a>
@@ -77,11 +79,16 @@ const service = {
       team.length > 0 && (
         <section class="section" aria-labelledby="team">
           <h2 id="team">Advocates in this area</h2>
-          <ul class="roll">
+          <ul class="people">
             {team.map((a) => (
-              <li>
-                <a href={url(`/advocates/${a.slug}/`)}>{a.name}</a>
-                <span class="meta">Enrolment {a.enrolment}</span>
+              <li class="person">
+                <span class="avatar" aria-hidden="true">
+                  {a.photo ? <img src={url(a.photo)} alt="" width="68" height="68" loading="lazy" /> : 'NK'}
+                </span>
+                <span>
+                  <a href={url(`/advocates/${a.slug}/`)}>{a.name}</a>
+                  <span class="meta">Enrolment {a.enrolment}</span>
+                </span>
               </li>
             ))}
           </ul>

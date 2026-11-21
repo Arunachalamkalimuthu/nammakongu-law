@@ -1,8 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import { practiceAreas } from '../../site.config';
-import { url } from '../../lib/url';
+import PracticeGrid from '../../components/PracticeGrid.astro';
 import { breadcrumbSchema } from '../../lib/schema';
 
 const crumbs = [
@@ -23,18 +22,6 @@ const crumbs = [
       <h1>Practice areas</h1>
       <p>The kinds of matters the associates handle, and the laws they arise under.</p>
     </header>
-    <ul class="ledger">
-      {
-        practiceAreas.map((p) => (
-          <li>
-            <h2 style="font-size:1.25rem;margin:0">
-              <a href={url(`/practice-areas/${p.slug}/`)}>{p.name}</a>
-              <span class="ta" lang="ta">{p.nameTa}</span>
-            </h2>
-            <p>{p.summary}</p>
-          </li>
-        ))
-      }
-    </ul>
+    <PracticeGrid headingLevel="h2" />
   </div>
 </Base>

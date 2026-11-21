@@ -17,6 +17,8 @@ export function firmSchema(s: Site) {
     alternateName: [site.nameTa, site.shortName],
     description: site.description,
     url: absolute('/', s),
+    logo: absolute('/apple-touch-icon.png', s),
+    image: absolute('/og.png', s),
     telephone: site.phone,
     email: site.email,
     address: {

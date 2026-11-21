@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
+import Icon from '../components/Icon.astro';
 import { site } from '../site.config';
 import { breadcrumbSchema } from '../lib/schema';
 
@@ -23,25 +24,37 @@ const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
       <h1>Contact</h1>
       <p>Call or send a WhatsApp message to fix a time to meet an advocate. Please bring copies of your documents.</p>
     </header>
-    <div class="actions" style="margin-bottom:2.5rem">
-      <a class="btn btn-solid" href={tel}>Call {site.phone}</a>
-      <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener">Message on WhatsApp</a>
-      <a class="btn" href={`mailto:${site.email}`}>Email {site.email}</a>
-    </div>
-    <dl class="facts">
-      <dt>Address</dt>
-      <dd>
-        {site.address.street}, {site.address.locality}<br />
-        {site.address.city}, {site.address.district} District<br />
-        {site.address.state} {site.address.postalCode}
-      </dd>
-      <dt>Hours</dt>
-      <dd>{site.hours.map((h) => `${h.days}, ${h.opens} to ${h.closes}`).join('; ')}</dd>
-      <dt>Languages</dt>
-      <dd>Tamil, English</dd>
-      <dt>Map</dt>
-      <dd><a href={site.mapUrl} rel="noopener">Open in Google Maps</a></dd>
-    </dl>
+    <ul class="contact-list">
+      <li>
+        <span class="ic"><Icon name="phone" size={20} /></span>
+        <span><span class="label">Phone</span><a href={tel}>{site.phone}</a></span>
+      </li>
+      <li>
+        <span class="ic"><Icon name="chat" size={20} /></span>
+        <span><span class="label">WhatsApp</span><a href={`https://wa.me/${site.whatsapp}`} rel="noopener">Send a message</a></span>
+      </li>
+      <li>
+        <span class="ic"><Icon name="mail" size={20} /></span>
+        <span><span class="label">Email</span><a href={`mailto:${site.email}`}>{site.email}</a></span>
+      </li>
+      <li>
+        <span class="ic"><Icon name="pin" size={20} /></span>
+        <span>
+          <span class="label">Office</span>
+          {site.address.street}, {site.address.locality}, {site.address.city}, {site.address.district} District, {site.address.state}{' '}
+          {site.address.postalCode}<br />
+          <a href={site.mapUrl} rel="noopener">Open in Google Maps</a>
+        </span>
+      </li>
+      <li>
+        <span class="ic"><Icon name="clock" size={20} /></span>
+        <span><span class="label">Hours</span>{site.hours.map((h) => `${h.days}, ${h.opens}–${h.closes}`).join('; ')}</span>
+      </li>
+      <li>
+        <span class="ic"><Icon name="language" size={20} /></span>
+        <span><span class="label">Languages</span>Tamil, English</span>
+      </li>
+    </ul>
     <aside class="note">
       <p>
         Please do not send confidential details of your case by email or WhatsApp before speaking to an advocate.

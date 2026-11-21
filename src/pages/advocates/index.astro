@@ -1,8 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import { advocates, practiceBySlug } from '../../site.config';
-import { url } from '../../lib/url';
+import People from '../../components/People.astro';
+import { advocates } from '../../site.config';
 import { breadcrumbSchema, personSchema } from '../../lib/schema';
 
 const crumbs = [
@@ -23,19 +23,6 @@ const crumbs = [
       <h1>Advocates</h1>
       <p>Each advocate is enrolled with the Bar Council of Tamil Nadu and Puducherry.</p>
     </header>
-    <ul class="roll">
-      {
-        advocates.map((a) => (
-          <li>
-            <a href={url(`/advocates/${a.slug}/`)}>{a.name}</a>
-            <span class="meta">{a.role}, enrolled {a.enrolledYear}</span>
-            <span class="meta">{a.qualifications.join(', ')}</span>
-            <span class="meta">
-              {a.practiceAreas.map((s) => practiceBySlug(s)?.name).filter(Boolean).join(', ')}
-            </span>
-          </li>
-        ))
-      }
-    </ul>
+    <People detail />
   </div>
 </Base>

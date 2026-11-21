@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+import { practiceAreas } from '../site.config';
+import { url } from '../lib/url';
+
+interface Props {
+  lang?: 'en' | 'ta';
+  headingLevel?: 'h2' | 'h3';
+}
+const { lang = 'en', headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+const ta = lang === 'ta';
+---
+
+<ul class="areas">
+  {
+    practiceAreas.map((p) => (
+      <li>
+        <a href={url(`/practice-areas/${p.slug}/`)}>
+          <span class="area-icon">
+            <Icon name={p.slug as any} size={26} />
+          </span>
+          <H>{ta ? p.nameTa : p.name}</H>
+          <span class="ta" lang={ta ? 'en' : 'ta'}>{ta ? p.name : p.nameTa}</span>
+          <p lang="en">{p.summary}</p>
+          <span class="more">{ta ? 'மேலும் அறிய' : 'Learn more'}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

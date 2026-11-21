@@ -1,0 +1,70 @@
+---
+// Hero illustration: a district court facade on the plains of Kongu Nadu,
+// with coconut palms and the Nilgiri range behind. Pure SVG, ~3 KB.
+interface Props {
+  label?: string;
+}
+const { label = 'Illustration of a district court building with coconut palms and hills behind it' } = Astro.props;
+const ink = '#1a2433';
+const teal = '#0f766e';
+const cols = [196, 228, 260, 292, 324, 356];
+---
+
+<svg class="hero-art" viewBox="0 0 560 460" role="img" aria-label={label}>
+  <rect width="560" height="460" rx="22" fill="#e7f3f1"></rect>
+  <circle cx="430" cy="112" r="44" fill="#ffffff"></circle>
+  <circle cx="430" cy="112" r="44" fill="none" stroke={teal} stroke-width="2" stroke-dasharray="2 7" opacity=".5"></circle>
+
+  <!-- Nilgiri range, far and near -->
+  <path d="M0 290 L64 232 L118 262 L196 186 L262 246 L318 206 L392 262 L460 214 L560 268 V460 H0Z" fill="#cfe7e3"></path>
+  <path d="M0 336 C90 296 160 330 240 318 C330 304 420 334 560 312 V460 H0Z" fill="#acd6cf"></path>
+
+  <!-- ground -->
+  <rect x="0" y="380" width="560" height="80" fill="#ffffff" opacity=".55"></rect>
+  <line x1="24" y1="380" x2="536" y2="380" stroke={ink} stroke-width="2" stroke-linecap="round"></line>
+
+  <!-- court -->
+  <g stroke={ink} stroke-width="2" stroke-linejoin="round">
+    <rect x="186" y="232" width="188" height="120" fill="#f6f8f9"></rect>
+    <rect x="268" y="292" width="24" height="60" rx="12" fill={teal} stroke="none"></rect>
+    {cols.map((x) => <rect x={x - 7} y="232" width="14" height="120" fill="#ffffff"></rect>)}
+    <rect x="172" y="216" width="216" height="16" fill="#ffffff"></rect>
+    <path d="M164 216 L280 162 L396 216 Z" fill="#ffffff"></path>
+    <rect x="176" y="352" width="208" height="10" fill="#ffffff"></rect>
+    <rect x="164" y="362" width="232" height="9" fill="#ffffff"></rect>
+    <rect x="152" y="371" width="256" height="9" fill="#ffffff"></rect>
+  </g>
+  <!-- emblem: balance in the pediment -->
+  <g stroke={teal} stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M280 182v22"></path>
+    <path d="M268 188h24"></path>
+    <path d="M268 188l-4 8h8z"></path>
+    <path d="M292 188l-4 8h8z"></path>
+  </g>
+
+  <!-- coconut palms -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M96 380 C102 330 98 290 84 252" stroke={ink} stroke-width="5"></path>
+    <g stroke={teal} stroke-width="4">
+      <path d="M84 252 C66 240 46 242 30 258"></path>
+      <path d="M84 252 C72 228 52 220 34 224"></path>
+      <path d="M84 252 C84 226 96 212 116 208"></path>
+      <path d="M84 252 C104 240 124 244 136 262"></path>
+      <path d="M84 252 C78 232 80 214 88 200"></path>
+    </g>
+    <path d="M478 380 C472 336 476 304 488 272" stroke={ink} stroke-width="5"></path>
+    <g stroke={teal} stroke-width="4">
+      <path d="M488 272 C506 262 524 264 538 278"></path>
+      <path d="M488 272 C500 250 518 244 534 248"></path>
+      <path d="M488 272 C488 250 476 236 458 232"></path>
+      <path d="M488 272 C470 262 452 266 442 282"></path>
+      <path d="M488 272 C494 254 492 238 484 226"></path>
+    </g>
+    <path d="M128 380 C131 354 129 336 122 318" stroke={ink} stroke-width="4"></path>
+    <g stroke={teal} stroke-width="3">
+      <path d="M122 318 C110 310 98 312 90 322"></path>
+      <path d="M122 318 C120 304 128 296 140 294"></path>
+      <path d="M122 318 C134 312 146 316 152 326"></path>
+    </g>
+  </g>
+</svg>

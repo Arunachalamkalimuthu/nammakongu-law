@@ -64,16 +64,22 @@ const nav = ta
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={ta ? 'ta_IN' : 'en_IN'} />
-    <meta name="twitter:card" content="summary" />
-    <meta name="theme-color" content="#1b2447" />
+    <meta property="og:image" content={absolute('/og.png', s)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name}: advocates in Kongu Nadu`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={absolute('/og.png', s)} />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
     <link rel="sitemap" href={url('/sitemap-index.xml')} />
     <link rel="alternate" type="text/plain" title="LLM summary" href={url('/llms.txt')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wdth,wght@75..125,400..700&family=Source+Serif+4:opsz,wght@8..60,400..600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Noto+Sans+Tamil:wght@400..700&display=swap"
     />
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </head>
@@ -81,17 +87,16 @@ const nav = ta
     <a class="skip" href="#main">{ta ? 'உள்ளடக்கத்துக்குச் செல்' : 'Skip to content'}</a>
     {
       noindex && (
-        <div class="placeholder-banner" role="note">
-          Preview. Advocate names and office details are placeholders until the firm confirms them.
+        <div class="preview-note" role="note">
+          Preview: advocate names and office details are placeholders until the firm confirms them.
         </div>
       )
     }
-    <div class="kara" aria-hidden="true"></div>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href={url(ta ? '/ta/' : '/')}>
-          <span class="brand-ta" lang="ta">நம்ம கொங்கு</span>
-          <span class="brand-en">Law Associates</span>
+        <a class="brand" href={url(ta ? '/ta/' : '/')} aria-label={site.name}>
+          <span class="brand-name">nammakongu<span class="dot">.</span></span>
+          <span class="brand-sub">Law Associates</span>
         </a>
         <nav class="nav" aria-label={ta ? 'முதன்மை' : 'Main'}>
           {nav.map((n) => <a href={url(n.href)} aria-current={isCurrent(n.href)}>{n.label}</a>)}
@@ -102,6 +107,7 @@ const nav = ta
               <a href={url(alternates?.ta ?? '/ta/')} lang="ta" hreflang="ta">தமிழ்</a>
             )
           }
+          <a class="btn btn-primary btn-sm" href={tel}>{ta ? 'அழைக்க' : 'Call us'}</a>
         </nav>
       </div>
     </header>
@@ -111,10 +117,12 @@ const nav = ta
     </main>
 
     <footer class="site-footer">
-      <div class="kara" aria-hidden="true"></div>
-      <div class="wrap">
+      <div class="wrap footer-grid">
         <div>
-          <h2>{site.name}</h2>
+          <a class="brand" href={url(ta ? '/ta/' : '/')} aria-label={site.name}>
+            <span class="brand-name">nammakongu<span class="dot">.</span></span>
+            <span class="brand-sub">Law Associates</span>
+          </a>
           <address>
             {site.address.street}, {site.address.locality}<br />
             {site.address.city}, {site.address.district} District<br />
@@ -125,8 +133,9 @@ const nav = ta
           <h2>{ta ? 'தொடர்புக்கு' : 'Contact'}</h2>
           <ul>
             <li><a href={tel}>{site.phone}</a></li>
+            <li><a href={`https://wa.me/${site.whatsapp}`} rel="noopener">WhatsApp</a></li>
             <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-            {site.hours.map((h) => <li>{ta ? h.daysTa : h.days}, {h.opens} to {h.closes}</li>)}
+            {site.hours.map((h) => <li>{ta ? h.daysTa : h.days}, {h.opens}–{h.closes}</li>)}
           </ul>
         </div>
         <div>
@@ -142,9 +151,10 @@ const nav = ta
           </ul>
         </div>
         <div>
-          <h2>{ta ? 'தளம்' : 'This site'}</h2>
+          <h2>{ta ? 'நிறுவனம்' : 'Firm'}</h2>
           <ul>
-            <li><a href={url('/about/')}>{ta ? 'எங்களைப் பற்றி' : 'About the firm'}</a></li>
+            <li><a href={url('/about/')}>{ta ? 'எங்களைப் பற்றி' : 'About'}</a></li>
+            <li><a href={url('/advocates/')}>{ta ? 'வழக்கறிஞர்கள்' : 'Advocates'}</a></li>
             <li><a href={url('/guides/')}>{ta ? 'சட்ட வழிகாட்டிகள்' : 'Legal guides'}</a></li>
             <li><a href={url('/disclaimer/')}>{ta ? 'பொறுப்புத் துறப்பு' : 'Disclaimer'}</a></li>
             <li><a href={url('/privacy/')}>{ta ? 'தனியுரிமை' : 'Privacy'}</a></li>
@@ -153,6 +163,7 @@ const nav = ta
       </div>
       <div class="wrap legal">
         <p>
+          © {new Date().getFullYear()} {site.name}.{' '}
           {
             ta
               ? 'இந்திய வழக்கறிஞர் கவுன்சில் விதிகளின்படி, இந்தத் தளம் தகவலுக்காக மட்டுமே. இது விளம்பரமோ, வழக்கு கோரலோ, சட்ட ஆலோசனையோ அல்ல.'
@@ -164,36 +175,37 @@ const nav = ta
 
     <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
       <div class="gate-box">
-        <div class="kara" aria-hidden="true"></div>
-        <div class="inner">
-          <h2 id="gate-title">{ta ? 'பொறுப்புத் துறப்பு' : 'Disclaimer'}</h2>
-          {
-            ta ? (
-              <>
-                <p>இந்திய வழக்கறிஞர் கவுன்சில் விதிகள், வழக்கறிஞர்கள் விளம்பரம் செய்வதையோ வழக்குகளைக் கோருவதையோ அனுமதிப்பதில்லை. "ஏற்கிறேன்" என்பதை அழுத்துவதன் மூலம் நீங்கள் பின்வருவனவற்றை ஏற்கிறீர்கள்:</p>
-                <ul>
-                  <li>எங்கள் நிறுவனம் அல்லது உறுப்பினர்களால் எந்த விளம்பரமோ, கோரலோ, தூண்டுதலோ செய்யப்படவில்லை.</li>
-                  <li>எங்களைப் பற்றிய தகவலை நீங்களாகவே தேடுகிறீர்கள்.</li>
-                  <li>இந்தத் தளத்தில் உள்ளவை பொதுவான தகவல் மட்டுமே; சட்ட ஆலோசனை அல்ல.</li>
-                  <li>இந்தத் தளத்தைப் பயன்படுத்துவதால் வழக்கறிஞர்–கட்சிக்காரர் உறவு ஏற்படாது.</li>
-                </ul>
-              </>
-            ) : (
-              <>
-                <p>The Bar Council of India does not permit advocates to advertise or solicit work. By choosing "I agree" you confirm that:</p>
-                <ul>
-                  <li>there has been no advertisement, solicitation or inducement of any kind by the firm or its members;</li>
-                  <li>you are looking for information about the firm on your own initiative;</li>
-                  <li>the material on this site is general information, not legal advice;</li>
-                  <li>using this site does not create an advocate–client relationship.</li>
-                </ul>
-              </>
-            )
-          }
-          <div class="actions">
-            <button class="btn btn-solid" id="gate-agree" type="button">{ta ? 'ஏற்கிறேன்' : 'I agree'}</button>
-            <a class="btn" href="https://www.google.com/">{ta ? 'வெளியேறு' : 'Leave site'}</a>
-          </div>
+        <span class="brand" aria-hidden="true">
+          <span class="brand-name">nammakongu<span class="dot">.</span></span>
+          <span class="brand-sub">Law Associates</span>
+        </span>
+        <h2 id="gate-title">{ta ? 'பொறுப்புத் துறப்பு' : 'Before you continue'}</h2>
+        {
+          ta ? (
+            <>
+              <p>இந்திய வழக்கறிஞர் கவுன்சில் விதிகள், வழக்கறிஞர்கள் விளம்பரம் செய்வதையோ வழக்குகளைக் கோருவதையோ அனுமதிப்பதில்லை. "ஏற்கிறேன்" என்பதை அழுத்துவதன் மூலம் நீங்கள் பின்வருவனவற்றை ஏற்கிறீர்கள்:</p>
+              <ul>
+                <li>எங்கள் நிறுவனம் அல்லது உறுப்பினர்களால் எந்த விளம்பரமோ, கோரலோ, தூண்டுதலோ செய்யப்படவில்லை.</li>
+                <li>எங்களைப் பற்றிய தகவலை நீங்களாகவே தேடுகிறீர்கள்.</li>
+                <li>இந்தத் தளத்தில் உள்ளவை பொதுவான தகவல் மட்டுமே; சட்ட ஆலோசனை அல்ல.</li>
+                <li>இந்தத் தளத்தைப் பயன்படுத்துவதால் வழக்கறிஞர்–கட்சிக்காரர் உறவு ஏற்படாது.</li>
+              </ul>
+            </>
+          ) : (
+            <>
+              <p>The Bar Council of India does not permit advocates to advertise or solicit work. By choosing "I agree" you confirm that:</p>
+              <ul>
+                <li>there has been no advertisement, solicitation or inducement of any kind by the firm or its members;</li>
+                <li>you are looking for information about the firm on your own initiative;</li>
+                <li>the material on this site is general information, not legal advice;</li>
+                <li>using this site does not create an advocate–client relationship.</li>
+              </ul>
+            </>
+          )
+        }
+        <div class="actions">
+          <button class="btn btn-primary" id="gate-agree" type="button">{ta ? 'ஏற்கிறேன்' : 'I agree'}</button>
+          <a class="btn" href="https://www.google.com/">{ta ? 'வெளியேறு' : 'Leave site'}</a>
         </div>
       </div>
     </div>

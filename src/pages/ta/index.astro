@@ -1,6 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { site, practiceAreas, advocates } from '../../site.config';
+import HeroArt from '../../components/HeroArt.astro';
+import Icon from '../../components/Icon.astro';
+import PracticeGrid from '../../components/PracticeGrid.astro';
+import People from '../../components/People.astro';
+import { site } from '../../site.config';
 import { url } from '../../lib/url';
 import { faqSchema } from '../../lib/schema';
 
@@ -13,6 +17,7 @@ const towns: Record<string, string> = {
   Namakkal: 'நாமக்கல்',
   Karur: 'கரூர்',
 };
+const townsTa = site.areaServed.map((t) => towns[t] ?? t);
 const faq = [
   {
     q: 'காசோலை திரும்பி வந்தால் என்ன செய்ய வேண்டும்?',
@@ -31,7 +36,6 @@ const faq = [
     a: 'பாரதிய நாகரிக் சுரக்ஷா சன்ஹிதா பிரிவு 173(4)-ன் கீழ் காவல் கண்காணிப்பாளருக்கு எழுத்து மூலம் புகார் அனுப்பலாம். அதன்பின் பிரிவு 175(3)-ன் கீழ் பிரமாணப் பத்திரத்துடன் நீதித்துறை நடுவரிடம் மனு செய்யலாம்.',
   },
 ];
-const townsTa = site.areaServed.map((t) => towns[t] ?? t);
 ---
 
 <Base
@@ -42,72 +46,55 @@ const townsTa = site.areaServed.map((t) => towns[t] ?? t);
   alternates={{ en: '/', ta: '/ta/' }}
   schema={[faqSchema(faq)]}
 >
-  <section class="hero wrap">
-    <h1 class="wordmark">
-      நம்ம கொங்கு
-      <span class="wordmark-en">சட்ட ஆலோசகர்கள்</span>
-    </h1>
-    <p class="hero-lede">
-      கொங்கு நாட்டில் செயல்படும் வழக்கறிஞர்கள் குழு. {townsTa.slice(0, 3).join(', ')} நீதிமன்றங்களிலும் சென்னை
-      உயர் நீதிமன்றத்திலும் சிவில், சொத்து, குடும்ப, குற்றவியல், காசோலை மோசடி மற்றும் வணிக வழக்குகளைக் கையாளுகிறோம்.
-    </p>
-    <div class="actions">
-      <a class="btn btn-solid" href={tel}>அழைக்க {site.phone}</a>
-      <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener">வாட்ஸ்அப்பில் தொடர்பு கொள்ள</a>
+  <section class="wrap hero">
+    <div>
+      <h1>கொங்கு நாட்டுக் குடும்பங்களுக்கும் தொழில்களுக்கும் தெளிவான சட்ட உதவி.</h1>
+      <p class="hero-lede">
+        {site.nameTa}: {townsTa.slice(0, 3).join(', ')} நீதிமன்றங்களிலும் சென்னை உயர் நீதிமன்றத்திலும் சொத்து, குடும்ப,
+        குற்றவியல், காசோலை மோசடி மற்றும் வணிக வழக்குகளைக் கையாளும் வழக்கறிஞர்கள் குழு.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href={url('/contact/')}>ஆலோசனைக்கு நேரம் பெற</a>
+        <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener">
+          <Icon name="chat" size={18} /> வாட்ஸ்அப்
+        </a>
+      </div>
+    </div>
+    <HeroArt label="கொங்கு நாட்டு நீதிமன்றக் கட்டடம், தென்னை மரங்கள் மற்றும் மலைகளின் ஓவியம்" />
+  </section>
+
+  <div class="strip">
+    <ul class="wrap">
+      <li><Icon name="scales" size={20} /> தமிழ்நாடு மற்றும் புதுச்சேரி வழக்கறிஞர் கவுன்சிலில் பதிவு பெற்றவர்கள்</li>
+      <li><Icon name="court" size={20} /> மாவட்ட நீதிமன்றங்கள், சென்னை உயர் நீதிமன்றம்</li>
+      <li><Icon name="language" size={20} /> தமிழ், ஆங்கிலம்</li>
+      <li><Icon name="clock" size={20} /> {site.hours[0].daysTa}, {site.hours[0].opens}–{site.hours[0].closes}</li>
+    </ul>
+  </div>
+
+  <section class="section wrap" aria-labelledby="practice">
+    <div class="section-head">
+      <div>
+        <h2 id="practice">வழக்கு வகைகள்</h2>
+        <p>முதல் சட்ட அறிவிப்பு முதல் மேல்முறையீடு வரை.</p>
+      </div>
+    </div>
+    <PracticeGrid lang="ta" />
+  </section>
+
+  <section class="section section-alt" aria-labelledby="advocates">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="advocates">எங்கள் வழக்கறிஞர்கள்</h2>
+      </div>
+      <People lang="ta" />
     </div>
   </section>
 
-  <section class="section wrap" aria-labelledby="practice">
-    <h2 id="practice">வழக்கு வகைகள்</h2>
-    <ul class="ledger">
-      {
-        practiceAreas.map((p) => (
-          <li>
-            <h3>
-              <a href={url(`/practice-areas/${p.slug}/`)}>{p.nameTa}</a>
-              <span class="ta" lang="en">{p.name}</span>
-            </h3>
-            <p lang="en">{p.summary}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <section class="section wrap" aria-labelledby="advocates">
-    <h2 id="advocates">வழக்கறிஞர்கள்</h2>
-    <ul class="roll">
-      {
-        advocates.map((a) => (
-          <li>
-            <a href={url(`/advocates/${a.slug}/`)}>{a.nameTa}</a>
-            <span class="meta">பதிவு எண் {a.enrolment}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <section class="section wrap" aria-labelledby="office">
-    <h2 id="office">அலுவலகம்</h2>
-    <dl class="facts">
-      <dt>முகவரி</dt>
-      <dd>
-        {site.address.street}, {site.address.locality}, {site.address.city}, {site.address.district} மாவட்டம்,
-        தமிழ்நாடு {site.address.postalCode}
-      </dd>
-      <dt>நேரம்</dt>
-      <dd>{site.hours.map((h) => `${h.daysTa}, ${h.opens} முதல் ${h.closes} வரை`).join('; ')}</dd>
-      <dt>தொலைபேசி</dt>
-      <dd><a href={tel}>{site.phone}</a></dd>
-      <dt>மின்னஞ்சல்</dt>
-      <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
-    </dl>
-    <a href={site.mapUrl} rel="noopener">கூகுள் வரைபடத்தில் பார்க்க</a>
-  </section>
-
   <section class="section wrap" aria-labelledby="faq-ta">
-    <h2 id="faq-ta">அடிக்கடி கேட்கப்படும் கேள்விகள்</h2>
+    <div class="section-head">
+      <h2 id="faq-ta">அடிக்கடி கேட்கப்படும் கேள்விகள்</h2>
+    </div>
     <div class="faq">
       {
         faq.map((f) => (
@@ -117,6 +104,19 @@ const townsTa = site.areaServed.map((t) => towns[t] ?? t);
           </details>
         ))
       }
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="talk">
+    <div class="wrap">
+      <div>
+        <h2 id="talk">வழக்கறிஞரிடம் பேசுங்கள்</h2>
+        <p>{site.hours[0].daysTa}, {site.hours[0].opens}–{site.hours[0].closes}</p>
+      </div>
+      <div class="actions">
+        <a class="btn" href={tel}><Icon name="phone" size={18} /> {site.phone}</a>
+        <a class="btn btn-ghost" href={url('/contact/')}>அலுவலக முகவரி</a>
+      </div>
     </div>
   </section>
 </Base>
