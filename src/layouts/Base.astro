@@ -94,9 +94,8 @@ const nav = ta
     }
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href={url(ta ? '/ta/' : '/')} aria-label={site.name}>
-          <span class="brand-name">nammakongu<span class="dot">.</span></span>
-          <span class="brand-sub">Law Associates</span>
+        <a class="brand" href={url(ta ? '/ta/' : '/')}>
+          <img src={url('/brand/logo.svg')} alt={site.name} width="240" height="54" />
         </a>
         <nav class="nav" aria-label={ta ? 'முதன்மை' : 'Main'}>
           {nav.map((n) => <a href={url(n.href)} aria-current={isCurrent(n.href)}>{n.label}</a>)}
@@ -119,9 +118,8 @@ const nav = ta
     <footer class="site-footer">
       <div class="wrap footer-grid">
         <div>
-          <a class="brand" href={url(ta ? '/ta/' : '/')} aria-label={site.name}>
-            <span class="brand-name">nammakongu<span class="dot">.</span></span>
-            <span class="brand-sub">Law Associates</span>
+          <a class="brand" href={url(ta ? '/ta/' : '/')}>
+            <img src={url('/brand/logo-white.svg')} alt={site.name} width="240" height="54" loading="lazy" />
           </a>
           <address>
             {site.address.street}, {site.address.locality}<br />
@@ -175,10 +173,7 @@ const nav = ta
 
     <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
       <div class="gate-box">
-        <span class="brand" aria-hidden="true">
-          <span class="brand-name">nammakongu<span class="dot">.</span></span>
-          <span class="brand-sub">Law Associates</span>
-        </span>
+        <img class="brand" src={url('/brand/logo.svg')} alt="" width="178" height="40" />
         <h2 id="gate-title">{ta ? 'பொறுப்புத் துறப்பு' : 'Before you continue'}</h2>
         {
           ta ? (

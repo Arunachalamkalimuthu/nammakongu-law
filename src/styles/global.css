@@ -116,32 +116,20 @@ ol {
   padding-inline: var(--gutter);
 }
 
-/* Wordmark */
+/* Logo */
 .brand {
   display: inline-flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: var(--ink);
-  line-height: 1;
+  line-height: 0;
 }
-.brand:hover {
-  color: var(--ink);
+.brand img {
+  display: block;
+  height: 54px;
+  width: auto;
 }
-.brand-name {
-  font-weight: 700;
-  font-size: 1.45rem;
-  letter-spacing: -0.035em;
-}
-.brand-name .dot {
-  color: var(--teal);
-}
-.brand-sub {
-  font-size: 0.78rem;
-  font-weight: 500;
-  font-stretch: 85%;
-  color: var(--muted);
-  margin-top: 0.3rem;
-  letter-spacing: 0.01em;
+@media (max-width: 30rem) {
+  .brand img {
+    height: 46px;
+  }
 }
 
 /* Header */
@@ -727,13 +715,8 @@ ol {
   gap: 2rem;
   padding-block: 3.5rem 2.5rem;
 }
-.site-footer .brand,
-.site-footer .brand:hover {
-  color: #fff;
-  margin-bottom: 1rem;
-}
-.site-footer .brand-sub {
-  color: #9aa5b4;
+.site-footer .brand {
+  margin-bottom: 1.25rem;
 }
 .site-footer h2 {
   color: #fff;
@@ -800,6 +783,9 @@ ol {
   box-shadow: 0 24px 60px rgb(26 36 51 / 0.25);
 }
 .gate-box .brand {
+  display: block;
+  height: 40px;
+  width: auto;
   margin-bottom: 1.25rem;
 }
 .gate-box h2 {
