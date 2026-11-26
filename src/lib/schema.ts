@@ -85,6 +85,7 @@ export function personSchema(a: Advocate, s: Site) {
     url: absolute(`/advocates/${a.slug}/`, s),
     worksFor: { '@id': firmId(s) },
     knowsLanguage: a.languages,
+    ...(a.college ? { alumniOf: { '@type': 'CollegeOrUniversity', name: a.college } } : {}),
     knowsAbout: a.practiceAreas.map((slug) => practiceBySlug(slug)?.name).filter(Boolean),
     hasCredential: [
       {
@@ -100,6 +101,7 @@ export function personSchema(a: Advocate, s: Site) {
         '@type': 'EducationalOccupationalCredential',
         credentialCategory: 'degree',
         name: q,
+        ...(a.college ? { recognizedBy: { '@type': 'CollegeOrUniversity', name: a.college } } : {}),
       })),
     ],
   };

@@ -15,6 +15,7 @@ export type Advocate = {
   enrolment: string; // e.g. "MS/1234/2010" (Bar Council of Tamil Nadu & Puducherry)
   enrolledYear: string;
   qualifications: string[];
+  college?: string; // where the law degree was earned, e.g. "The Central Law College, Salem"
   courts: string[];
   practiceAreas: string[]; // slugs from practiceAreas below
   languages: string[];
@@ -226,11 +227,12 @@ export const advocates: Advocate[] = [
     enrolment: '989/1992',
     enrolledYear: '1992', // practising since 1992
     qualifications: ['B.L.'],
+    college: 'The Central Law College, Salem', // 1987–1992
     courts: ['[Principal District Court, Tiruppur]', 'Madras High Court'],
     // [confirm] all six areas while he is the only advocate
     practiceAreas: ['civil-and-property', 'family-and-matrimonial', 'criminal', 'cheque-bounce-and-recovery', 'commercial-and-contracts', 'consumer'],
     languages: ['Tamil', 'English'],
-    bio: '[Factual profile: law college and year, enrolment with the Bar Council of Tamil Nadu and Puducherry, courts regularly appeared in, areas of practice.]',
+    bio: 'P. Kalimuthu studied law at The Central Law College, Salem, from 1987 to 1992 and was enrolled with the Bar Council of Tamil Nadu and Puducherry in 1992 (enrolment 989/1992). He practises from his office in Tiruppur and from his chamber at the Madras High Court in Chennai, in civil and property, family, criminal, cheque bounce, commercial and consumer matters. He works in Tamil and English.',
   },
 ];
 
