@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Letterhead from '../../components/Letterhead.astro';
+import HomeHero from '../../components/HomeHero.astro';
+import Credentials from '../../components/Credentials.astro';
+import OfficeCards from '../../components/OfficeCards.astro';
 import AreaList from '../../components/AreaList.astro';
 import People from '../../components/People.astro';
 import { site, advocates } from '../../site.config';
@@ -35,16 +37,22 @@ const faq = [
   alternates={{ en: '/', ta: '/ta/' }}
   schema={[faqSchema(faq)]}
 >
-  <Letterhead lang="ta" />
+  <HomeHero lang="ta" />
+  <Credentials lang="ta" />
 
-  <section class="section wrap" aria-labelledby="practice">
-    <div class="section-head">
-      <div>
-        <h2 id="practice">வழக்கு வகைகள்</h2>
-        <p>முதல் சட்ட அறிவிப்பு முதல் மேல்முறையீடு வரை.</p>
-      </div>
+  <section class="section wrap split-section" aria-labelledby="practice">
+    <div class="split-head">
+      <h2 id="practice">வழக்கு வகைகள்</h2>
+      <p>முதல் சட்ட அறிவிப்பு முதல் சென்னை உயர் நீதிமன்ற மேல்முறையீடு வரை.</p>
     </div>
     <AreaList lang="ta" />
+  </section>
+
+  <section class="section section-alt offices-band" aria-labelledby="offices">
+    <div class="wrap">
+      <h2 id="offices">இரண்டு அலுவலகங்கள்</h2>
+      <OfficeCards lang="ta" />
+    </div>
   </section>
 
   {

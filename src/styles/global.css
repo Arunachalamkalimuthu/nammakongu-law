@@ -294,137 +294,206 @@ ol {
   }
 }
 
-/* Letterhead (home page header) */
-.letterhead {
-  padding-block: clamp(1.5rem, 5vw, 3.5rem) clamp(1rem, 3vw, 2rem);
+/* Home: hero (option D, "chambers editorial") */
+.hero2 {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+  align-items: end;
+  padding-block: clamp(2.25rem, 7vw, 5rem) clamp(2rem, 5vw, 3.5rem);
 }
-.lh-sheet {
-  border: 1px solid var(--line);
-  border-top: 4px solid var(--teal);
-  border-radius: 4px;
-  padding: clamp(1.5rem, 5vw, 3.25rem) clamp(1.25rem, 5vw, 3.5rem);
-  background: #fff;
-}
-.lh-firm {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.25rem 1.5rem;
-  margin: 0 0 clamp(1.5rem, 4vw, 2.5rem);
-  font-family: var(--serif);
+.hero2-label {
+  margin: 0 0 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--teal);
 }
-.lh-firm-ta {
-  letter-spacing: 0;
-  text-transform: none;
-}
-.lh-name {
+.hero2-name {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: clamp(1.9rem, 5.2vw, 3.2rem);
-  letter-spacing: -0.01em;
-  line-height: 1.12;
-  margin: 0 0 0.35em;
+  font-size: clamp(2.4rem, 8vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.25em;
+  text-wrap: balance;
 }
-.lh-quals {
+.hero2-quals {
   color: var(--muted);
   font-weight: 500;
 }
-.lh-enrol {
+.hero2-name-ta {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  color: var(--teal);
+  margin: 0 0 0.75rem;
+}
+.hero2-lede {
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
   color: var(--ink-2);
+  max-width: 46ch;
+  margin: 1rem 0 1.75rem;
+}
+.hero2-photo,
+.hero2-block {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 34rem;
+  border-radius: 10px;
+}
+.hero2-photo {
+  object-fit: cover;
+}
+.hero2-block {
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  position: relative;
+  overflow: hidden;
+}
+.hero2-block::before {
+  /* fine teal rule frame, like a printed certificate border */
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(43, 179, 166, 0.45);
+  border-radius: 6px;
+  pointer-events: none;
+}
+.hero2-block img {
+  width: 4.5rem;
+  margin-bottom: auto;
+}
+.hero2-block p {
   margin: 0;
 }
-.lh-rule {
-  height: 0;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-  padding-top: 3px;
-  margin-block: clamp(1.25rem, 3.5vw, 2rem);
-  opacity: 0.85;
-}
-.lh-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 1.5rem 3rem;
-  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
-}
-.lh-office h2,
-.lh-details dt {
-  font-family: var(--font);
-  font-size: 0.8rem;
+.hero2-block-year {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 8vw, 5.5rem);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  line-height: 1;
+}
+.hero2-block-note {
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 0.35rem;
+  color: #2bb3a6;
+  margin-top: 0.4rem !important;
 }
-.lh-details address {
-  font-style: normal;
-  line-height: 1.65;
+.hero2-block-places {
+  margin-top: 1.25rem !important;
+  color: #aab4c2;
 }
-.nowrap {
-  white-space: nowrap;
-}
-.lh-hours {
-  margin: 0.5rem 0 0;
-  font-weight: 500;
-}
-.lh-map {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  margin-top: 0.5rem;
-  font-weight: 600;
-  text-decoration: none;
-}
-.lh-map:hover {
-  text-decoration: underline;
-}
-.lh-details dl {
-  margin: 0;
-  display: grid;
-  gap: 0.9rem;
-  align-content: start;
-}
-.lh-details dd {
-  margin: 0.1rem 0 0;
-  font-weight: 500;
-}
-.lh-details dd a {
-  color: var(--ink);
-  text-decoration: none;
-  font-size: 1.15rem;
-  font-weight: 600;
-}
-@media (max-width: 26rem) {
-  .lh-actions .btn {
-    flex: 1 1 auto;
-    padding-inline: 1em;
+@media (max-width: 52rem) {
+  .hero2 {
+    grid-template-columns: 1fr;
+  }
+  .hero2-photo {
+    aspect-ratio: 4 / 3;
+    max-height: 22rem;
+  }
+  /* On phones the credentials band right below already says "1992". */
+  .hero2-block {
+    display: none;
   }
 }
 
-/* Home page practice list: plain, two columns */
+/* Tamil script does not take letter-spacing or capitals */
+:lang(ta) .hero2-label,
+:lang(ta) .hero2-block-note,
+:lang(ta) .cred-grid dt,
+:lang(ta) .office-cards h3,
+:lang(ta) .guide-topic {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Home: credentials band (Rule 36 schedule facts only) */
+.cred-band {
+  background: var(--ink);
+  color: #fff;
+}
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), 1fr);
+  gap: 1.5rem 2rem;
+  margin: 0 auto;
+  padding-block: clamp(1.5rem, 4vw, 2.25rem);
+}
+.cred-grid dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2bb3a6;
+}
+.cred-value {
+  margin: 0.2rem 0 0;
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2.6vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.cred-note {
+  margin: 0.25rem 0 0;
+  font-size: 0.88rem;
+  color: #aab4c2;
+}
+@media (max-width: 52rem) {
+  .cred-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Home: practice areas, heading beside a numbered list */
+.split-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+}
+.split-head h2 {
+  font-family: var(--serif);
+  margin-bottom: 0.2rem;
+}
+.split-head-ta {
+  font-family: var(--serif);
+  color: var(--teal);
+  margin: 0 0 0.75rem;
+}
+.split-head p {
+  color: var(--muted);
+}
+.more-link {
+  font-weight: 600;
+  text-decoration: none;
+}
 .area-list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 3rem;
-  border-top: 1px solid var(--line);
+  column-gap: 2.5rem;
 }
 .area-list > li {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 0 0.5rem;
   padding-block: 1.1rem;
-  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
 }
-.area-list a {
+.area-n {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: 1.15rem;
+  color: var(--teal);
+  font-size: 1.05rem;
+}
+.area-list a {
+  font-weight: 600;
   color: var(--ink);
   text-decoration: none;
 }
@@ -432,15 +501,106 @@ ol {
   color: var(--teal);
   text-decoration: underline;
 }
+.area-ta {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
 .area-list p {
   margin: 0.2rem 0 0;
   color: var(--muted);
-  font-size: 0.97rem;
+  font-size: 0.95rem;
 }
-@media (max-width: 44rem) {
+@media (max-width: 52rem) {
+  .split-section,
   .area-list {
     grid-template-columns: 1fr;
   }
+}
+
+/* Home: offices */
+.offices-band {
+  border-block: 1px solid var(--line);
+}
+.offices-band h2 {
+  font-family: var(--serif);
+  margin-bottom: 1.25rem;
+}
+.office-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.25rem;
+}
+.office-cards > li {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--teal);
+  border-radius: 8px;
+  padding: 1.25rem 1.4rem;
+}
+.office-cards h3 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.office-cards address {
+  font-style: normal;
+}
+.office-hours {
+  margin: 0.6rem 0 0;
+  font-weight: 600;
+}
+.office-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.office-map:hover {
+  text-decoration: underline;
+}
+
+/* Home: legal guides as an editorial row */
+.guide-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.5rem;
+}
+.guide-row > li {
+  border-top: 2px solid var(--ink);
+  padding-top: 0.75rem;
+}
+.guide-topic {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.guide-row a {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  color: var(--ink);
+  text-decoration: none;
+}
+.guide-row a:hover {
+  color: var(--teal);
+  text-decoration: underline;
 }
 
 /* Credentials strip */

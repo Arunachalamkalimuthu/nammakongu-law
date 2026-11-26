@@ -1,0 +1,48 @@
+---
+// Both places of practice as cards: address, hours where published, and a
+// Directions link. No embedded maps: the site loads nothing from third parties.
+import Icon from './Icon.astro';
+import { site } from '../site.config';
+import { hoursText } from '../lib/hours';
+
+interface Props {
+  lang?: 'en' | 'ta';
+}
+const { lang = 'en' } = Astro.props;
+const ta = lang === 'ta';
+const pin = (p: string) => p.replace(/^(\d{3})(\d{3})$/, '$1 $2');
+const a = site.address;
+
+const offices = [
+  {
+    label: ta ? site.officeLabelTa : site.officeLabel,
+    lines: [a.street, `${a.locality}, ${a.city} ${pin(a.postalCode)}`],
+    hours: site.hours.map((h) => hoursText(h, ta)).join('; '),
+    mapUrl: site.mapUrl,
+  },
+  ...site.otherOffices.map((o) => ({
+    label: ta ? o.labelTa : o.label,
+    lines: [o.street, `${o.locality}, ${o.city} ${pin(o.postalCode)}`],
+    hours: '',
+    mapUrl: o.mapUrl,
+  })),
+];
+---
+
+<ul class="office-cards">
+  {
+    offices.map((o) => (
+      <li>
+        <h3>{o.label}</h3>
+        <address lang="en">
+          {o.lines[0]},<br />
+          {o.lines[1]}
+        </address>
+        {o.hours && <p class="office-hours">{o.hours}</p>}
+        <a class="office-map" href={o.mapUrl} rel="noopener">
+          <Icon name="pin" size={16} /> {ta ? 'வழி காட்டு' : 'Directions'}
+        </a>
+      </li>
+    ))
+  }
+</ul>

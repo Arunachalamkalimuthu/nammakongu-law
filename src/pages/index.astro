@@ -1,13 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import Letterhead from '../components/Letterhead.astro';
+import HomeHero from '../components/HomeHero.astro';
+import Credentials from '../components/Credentials.astro';
 import AreaList from '../components/AreaList.astro';
+import OfficeCards from '../components/OfficeCards.astro';
 import People from '../components/People.astro';
-import { site, advocates } from '../site.config';
+import { site, advocates, practiceAreas } from '../site.config';
 import { url } from '../lib/url';
 
 const guides = (await getCollection('guides')).sort((a, b) => +b.data.updated - +a.data.updated);
+// Category label for a guide: the first practice area that lists it.
+const topic = (id: string) => practiceAreas.find((p) => p.guides.includes(id))?.name.split(' ')[0] ?? 'Guide';
 // Show the team section only once there is more than one real advocate.
 const team = advocates.filter((a) => !a.name.startsWith('['));
 ---
@@ -18,54 +22,57 @@ const team = advocates.filter((a) => !a.name.startsWith('['));
   path="/"
   alternates={{ en: '/', ta: '/ta/' }}
 >
-  <Letterhead />
+  <HomeHero />
+  <Credentials />
 
-  <section class="section wrap" aria-labelledby="practice">
-    <div class="section-head">
-      <div>
-        <h2 id="practice">Practice areas</h2>
-        <p>From a first legal notice to appeal.</p>
-      </div>
-      <a href={url('/practice-areas/')}>All practice areas</a>
+  <section class="section wrap split-section" aria-labelledby="practice">
+    <div class="split-head">
+      <h2 id="practice">Areas of practice</h2>
+      <p class="split-head-ta" lang="ta">வழக்கு வகைகள்</p>
+      <p>From a first legal notice to appeal before the Madras High Court.</p>
+      <a class="more-link" href={url('/practice-areas/')}>All practice areas →</a>
     </div>
     <AreaList />
   </section>
 
   {
     team.length > 1 && (
-  <section class="section section-alt" aria-labelledby="advocates">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <h2 id="advocates">Our advocates</h2>
-          <p>Each advocate is enrolled with the Bar Council of Tamil Nadu and Puducherry.</p>
+      <section class="section section-alt" aria-labelledby="advocates">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <h2 id="advocates">Our advocates</h2>
+              <p>Each advocate is enrolled with the Bar Council of Tamil Nadu and Puducherry.</p>
+            </div>
+            <a href={url('/advocates/')}>Meet the team</a>
+          </div>
+          <People />
         </div>
-        <a href={url('/advocates/')}>Meet the team</a>
-      </div>
-      <People />
-    </div>
-  </section>
+      </section>
     )
   }
 
+  <section class="section section-alt offices-band" aria-labelledby="offices">
+    <div class="wrap">
+      <h2 id="offices">Two offices</h2>
+      <OfficeCards />
+    </div>
+  </section>
+
   <section class="section wrap" aria-labelledby="guides">
     <div class="section-head">
-      <div>
-        <h2 id="guides">Legal guides</h2>
-        <p>Plain answers to questions people in Tamil Nadu ask most often.</p>
-      </div>
-      <a href={url('/guides/')}>All guides</a>
+      <h2 id="guides">Legal guides</h2>
+      <a href={url('/guides/')}>All guides →</a>
     </div>
-    <ul class="guides">
+    <ul class="guide-row">
       {
         guides.map((g) => (
           <li>
+            <span class="guide-topic">{topic(g.id)}</span>
             <a href={url(`/guides/${g.id}/`)}>{g.data.title}</a>
-            <p>{g.data.description}</p>
           </li>
         ))
       }
     </ul>
   </section>
-
 </Base>

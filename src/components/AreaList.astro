@@ -1,5 +1,5 @@
 ---
-// Plain two-column list of practice areas for the home pages (no icons).
+// Numbered list of practice areas for the home pages (01–06), with Tamil names.
 import { practiceAreas } from '../site.config';
 import { url } from '../lib/url';
 
@@ -10,13 +10,21 @@ const { lang = 'en' } = Astro.props;
 const ta = lang === 'ta';
 ---
 
-<ul class="area-list">
+<ol class="area-list">
   {
-    practiceAreas.map((p) => (
+    practiceAreas.map((p, i) => (
       <li>
-        <a href={url(`/practice-areas/${p.slug}/`)}>{ta ? p.nameTa : p.name}</a>
-        <p lang="en">{p.summary}</p>
+        <span class="area-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <div>
+          <a href={url(`/practice-areas/${p.slug}/`)}>{ta ? p.nameTa : p.name}</a>
+          {!ta && (
+            <span class="area-ta" lang="ta">
+              {p.nameTa}
+            </span>
+          )}
+          <p lang="en">{p.summary}</p>
+        </div>
       </li>
     ))
   }
-</ul>
+</ol>

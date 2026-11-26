@@ -16,6 +16,8 @@ export type Advocate = {
   enrolledYear: string;
   qualifications: string[];
   college?: string; // where the law degree was earned, e.g. "The Central Law College, Salem"
+  memberships: string[]; // Bar Association memberships (a Rule 36 schedule field)
+  enrolledOn?: string; // ISO date of enrolment, shown instead of the year once known
   courts: string[];
   practiceAreas: string[]; // slugs from practiceAreas below
   languages: string[];
@@ -61,6 +63,10 @@ export const site = {
     'Kongu Law Associates is an advocates’ office in Tiruppur, Tamil Nadu, handling civil, property, family, criminal, cheque bounce and commercial matters before the district courts and the Madras High Court.',
   descriptionTa:
     'கொங்கு லா அசோசியேட்ஸ் — திருப்பூரில் சிவில், சொத்து, குடும்ப, குற்றவியல், காசோலை மோசடி மற்றும் வணிக வழக்குகளைக் கையாளும் வழக்கறிஞர் அலுவலகம்.',
+
+  // One-line summary of the work, used in the home page hero.
+  practiceLine: 'Property, family, criminal, cheque bounce, commercial and consumer matters',
+  practiceLineTa: 'சொத்து, குடும்ப, குற்றவியல், காசோலை, வணிக மற்றும் நுகர்வோர் வழக்குகள்',
 
   phone: '+91 98422 02114',
   whatsapp: '919842202114', // digits only, with country code
@@ -231,6 +237,7 @@ export const advocates: Advocate[] = [
     enrolledYear: '1992', // practising since 1992
     qualifications: ['B.L.'],
     college: 'The Central Law College, Salem', // 1987–1992
+    memberships: ['[Tiruppur Bar Association]', "[Madras High Court Advocates' Association]"],
     courts: ['[Principal District Court, Tiruppur]', 'Madras High Court'],
     // [confirm] all six areas while he is the only advocate
     practiceAreas: ['civil-and-property', 'family-and-matrimonial', 'criminal', 'cheque-bounce-and-recovery', 'commercial-and-contracts', 'consumer'],
