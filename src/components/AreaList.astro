@@ -1,0 +1,22 @@
+---
+// Plain two-column list of practice areas for the home pages (no icons).
+import { practiceAreas } from '../site.config';
+import { url } from '../lib/url';
+
+interface Props {
+  lang?: 'en' | 'ta';
+}
+const { lang = 'en' } = Astro.props;
+const ta = lang === 'ta';
+---
+
+<ul class="area-list">
+  {
+    practiceAreas.map((p) => (
+      <li>
+        <a href={url(`/practice-areas/${p.slug}/`)}>{ta ? p.nameTa : p.name}</a>
+        <p lang="en">{p.summary}</p>
+      </li>
+    ))
+  }
+</ul>

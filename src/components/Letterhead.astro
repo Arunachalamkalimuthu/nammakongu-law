@@ -1,0 +1,94 @@
+---
+// Home page header in the style of the firm's printed letterhead: who, where,
+// when, and one-tap Call / WhatsApp / Directions. Facts come from site.config.
+import Icon from './Icon.astro';
+import { site, advocates } from '../site.config';
+
+interface Props {
+  lang?: 'en' | 'ta';
+}
+const { lang = 'en' } = Astro.props;
+const ta = lang === 'ta';
+
+const lead = advocates[0];
+// Tamil page uses the Tamil name only once it is confirmed (no [placeholder]).
+const tamilName = ta && !lead.nameTa.includes('[');
+const a = site.address;
+const h = site.hours[0];
+const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
+
+// '09:00' -> '9 AM' / 'காலை 9'
+const hour = (t: string) => {
+  const [hh, mm] = t.split(':').map(Number);
+  const h12 = hh % 12 || 12;
+  const m = mm ? `.${String(mm).padStart(2, '0')}` : '';
+  if (!ta) return `${h12}${m} ${hh < 12 ? 'AM' : 'PM'}`;
+  const part = hh < 12 ? 'காலை' : hh < 16 ? 'மதியம்' : hh < 19 ? 'மாலை' : 'இரவு';
+  return `${part} ${h12}${m}`;
+};
+const hours = ta
+  ? `${h.daysTa}, ${hour(h.opens)} முதல் ${hour(h.closes)} வரை`
+  : `${h.days}, ${hour(h.opens)} to ${hour(h.closes)}`;
+---
+
+<section class="letterhead wrap" aria-labelledby="lh-name">
+  <div class="lh-sheet">
+    <p class="lh-firm">
+      <span lang="en">{site.name}</span>
+      <span class="lh-firm-ta" lang="ta">{site.nameTa}</span>
+    </p>
+
+    <h1 id="lh-name" class="lh-name">
+      {
+        tamilName ? (
+          <>
+            வழக்கறிஞர் {lead.nameTa}
+            <span class="lh-quals">, {lead.qualifications.join(', ')}</span>
+          </>
+        ) : (
+          <>
+            Adv. {lead.name}
+            <span class="lh-quals">, {lead.qualifications.join(', ')}</span>
+          </>
+        )
+      }
+    </h1>
+    <p class="lh-enrol">
+      {
+        ta
+          ? `தமிழ்நாடு மற்றும் புதுச்சேரி வழக்கறிஞர் கவுன்சில் பதிவு எண் ${lead.enrolment}`
+          : `Enrolled with the Bar Council of Tamil Nadu and Puducherry, ${lead.enrolment}`
+      }
+    </p>
+
+    <div class="lh-rule" aria-hidden="true"></div>
+
+    <div class="lh-details">
+      <address>
+        {a.street},<br />
+        {a.locality}, {a.city}{'\u00a0–\u00a0'}{a.postalCode.replace(/^(\d{3})(\d{3})$/, '$1\u00a0$2')},<br />
+        {a.state}
+      </address>
+      <dl>
+        <div>
+          <dt>{ta ? 'தொலைபேசி' : 'Phone'}</dt>
+          <dd><a href={tel}>{site.phone}</a></dd>
+        </div>
+        <div>
+          <dt>{ta ? 'அலுவலக நேரம்' : 'Office hours'}</dt>
+          <dd>{hours}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="actions lh-actions">
+      <a class="btn btn-primary" href={tel}><Icon name="phone" size={18} /> {ta ? 'அழைக்க' : 'Call'}</a>
+      <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener">
+        <Icon name="chat" size={18} /> {ta ? 'வாட்ஸ்அப்' : 'WhatsApp'}
+      </a>
+      <a class="btn" href={site.mapUrl} rel="noopener">
+        <Icon name="pin" size={18} /> {ta ? 'வழி' : 'Directions'}
+      </a>
+    </div>
+  </div>
+</section>

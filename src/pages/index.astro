@@ -1,60 +1,38 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import HeroArt from '../components/HeroArt.astro';
-import Icon from '../components/Icon.astro';
-import PracticeGrid from '../components/PracticeGrid.astro';
+import Letterhead from '../components/Letterhead.astro';
+import AreaList from '../components/AreaList.astro';
 import People from '../components/People.astro';
-import { site } from '../site.config';
+import { site, advocates } from '../site.config';
 import { url } from '../lib/url';
 
 const guides = (await getCollection('guides')).sort((a, b) => +b.data.updated - +a.data.updated);
-const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
+// Show the team section only once there is more than one real advocate.
+const team = advocates.filter((a) => !a.name.startsWith('['));
 ---
 
 <Base
-  title={`${site.name}: advocates in Kongu Nadu, Tamil Nadu`}
+  title={`${site.name}: advocates in ${site.address.city}, Tamil Nadu`}
   description={site.description}
   path="/"
   alternates={{ en: '/', ta: '/ta/' }}
 >
-  <section class="wrap hero">
-    <div>
-      <h1>Clear legal help for families and businesses in Kongu Nadu.</h1>
-      <p class="hero-lede">
-        {site.name} is a group of advocates handling property, family, criminal, cheque bounce and commercial
-        matters before the courts of {site.areaServed.slice(0, 3).join(', ')} and the Madras High Court.
-      </p>
-      <div class="actions">
-        <a class="btn btn-primary" href={url('/contact/')}>Contact the office</a>
-        <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener">
-          <Icon name="chat" size={18} /> WhatsApp
-        </a>
-      </div>
-    </div>
-    <HeroArt />
-  </section>
-
-  <div class="strip">
-    <ul class="wrap">
-      <li><Icon name="scales" size={20} /> Enrolled with the Bar Council of Tamil Nadu and Puducherry</li>
-      <li><Icon name="court" size={20} /> District courts and the Madras High Court</li>
-      <li><Icon name="language" size={20} /> Tamil and English</li>
-      <li><Icon name="clock" size={20} /> {site.hours[0].days}, {site.hours[0].opens}–{site.hours[0].closes}</li>
-    </ul>
-  </div>
+  <Letterhead />
 
   <section class="section wrap" aria-labelledby="practice">
     <div class="section-head">
       <div>
         <h2 id="practice">Practice areas</h2>
-        <p>The matters our advocates handle, from a first legal notice to appeal.</p>
+        <p>From a first legal notice to appeal.</p>
       </div>
       <a href={url('/practice-areas/')}>All practice areas</a>
     </div>
-    <PracticeGrid />
+    <AreaList />
   </section>
 
+  {
+    team.length > 1 && (
   <section class="section section-alt" aria-labelledby="advocates">
     <div class="wrap">
       <div class="section-head">
@@ -67,6 +45,8 @@ const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
       <People />
     </div>
   </section>
+    )
+  }
 
   <section class="section wrap" aria-labelledby="guides">
     <div class="section-head">
@@ -88,16 +68,4 @@ const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
     </ul>
   </section>
 
-  <section class="band" aria-labelledby="talk">
-    <div class="wrap">
-      <div>
-        <h2 id="talk">Talk to an advocate</h2>
-        <p>{site.address.city} office, {site.hours[0].days}, {site.hours[0].opens}–{site.hours[0].closes}</p>
-      </div>
-      <div class="actions">
-        <a class="btn" href={tel}><Icon name="phone" size={18} /> {site.phone}</a>
-        <a class="btn btn-ghost" href={url('/contact/')}>Office address</a>
-      </div>
-    </div>
-  </section>
 </Base>
