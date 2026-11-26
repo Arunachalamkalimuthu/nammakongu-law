@@ -1,0 +1,30 @@
+---
+// Numbered list of practice areas for the home pages (01–06), with Tamil names.
+import { practiceAreas } from '../site.config';
+import { url } from '../lib/url';
+
+interface Props {
+  lang?: 'en' | 'ta';
+}
+const { lang = 'en' } = Astro.props;
+const ta = lang === 'ta';
+---
+
+<ol class="area-list">
+  {
+    practiceAreas.map((p, i) => (
+      <li>
+        <span class="area-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <div>
+          <a href={url(`/practice-areas/${p.slug}/`)}>{ta ? p.nameTa : p.name}</a>
+          {!ta && (
+            <span class="area-ta" lang="ta">
+              {p.nameTa}
+            </span>
+          )}
+          <p lang="en">{p.summary}</p>
+        </div>
+      </li>
+    ))
+  }
+</ol>

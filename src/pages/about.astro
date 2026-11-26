@@ -1,4 +1,5 @@
 ---
+import { real } from '../lib/real';
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import { site, advocates, practiceAreas } from '../site.config';
@@ -13,7 +14,7 @@ const crumbs = [
 
 <Base
   title="About the firm"
-  description={`About ${site.name}: who the associates are, where they practise and the courts they appear before.`}
+  description={`About ${site.name}: the office of Adv. ${advocates[0].name}, where it practises and the courts it appears before.`}
   path="/about/"
   schema={[breadcrumbSchema(crumbs, Astro.site)]}
 >
@@ -24,17 +25,17 @@ const crumbs = [
     </header>
     <div class="prose">
       <p>
-        {site.name} (<span lang="ta">{site.nameTa}</span>) is a group of {advocates.length} advocates based in
-        {site.address.city}, {site.address.district} District, Tamil Nadu. Each advocate is enrolled with the Bar
-        Council of Tamil Nadu and Puducherry.
+        {site.name} (<span lang="ta">{site.nameTa}</span>) is the office of Adv. {advocates[0].name},{' '}
+        {advocates[0].qualifications.join(', ')}, in {site.address.city}, {site.address.district} District, Tamil Nadu,
+        with a chamber at the Madras High Court in Chennai. {advocates.length > 1 ? 'Each advocate is' : 'He is'}{' '}
+        enrolled with the Bar Council of Tamil Nadu and Puducherry.
       </p>
       <p>
-        The associates practise in {practiceAreas.map((p) => p.name.toLowerCase()).join(', ')}. They work in Tamil and
-        English.
+        The office handles {practiceAreas.map((p) => p.name.toLowerCase()).join(', ')}, in Tamil and English.
       </p>
       <h2>Where we practise</h2>
       <p>Towns: {site.areaServed.join(', ')}.</p>
-      <ul>{site.courts.map((c) => <li>{c}</li>)}</ul>
+      <ul>{site.courts.filter(real).map((c) => <li>{c}</li>)}</ul>
       <h2>Advocates</h2>
       <ul>
         {advocates.map((a) => <li><a href={url(`/advocates/${a.slug}/`)}>{a.name}</a>, {a.role}, enrolment {a.enrolment}</li>)}

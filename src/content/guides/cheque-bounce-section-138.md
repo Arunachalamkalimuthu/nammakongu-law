@@ -3,7 +3,7 @@ title: 'Cheque bounce in Tamil Nadu: the Section 138 timeline, step by step'
 description: 'What to do when a cheque bounces: the 30-day notice, the 15-day payment window, the one-month deadline to file, which court to file in, and what the court can order.'
 answer: 'If a cheque given to repay a debt bounces, the payee must send a written demand notice within 30 days of the bank''s return memo. If the drawer does not pay within 15 days of receiving the notice, the payee can file a complaint under Section 138 of the Negotiable Instruments Act, 1881 within one month after those 15 days end.'
 practiceArea: 'cheque-bounce-and-recovery'
-reviewer: 'advocate-one'
+reviewer: 'p-kalimuthu'
 published: 2026-11-21
 updated: 2026-11-21
 faq:

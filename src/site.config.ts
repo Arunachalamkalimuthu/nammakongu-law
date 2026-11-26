@@ -15,11 +15,28 @@ export type Advocate = {
   enrolment: string; // e.g. "MS/1234/2010" (Bar Council of Tamil Nadu & Puducherry)
   enrolledYear: string;
   qualifications: string[];
+  college?: string; // where the law degree was earned, e.g. "The Central Law College, Salem"
+  memberships: string[]; // Bar Association memberships (a Rule 36 schedule field)
+  enrolledOn?: string; // ISO date of enrolment, shown instead of the year once known
   courts: string[];
   practiceAreas: string[]; // slugs from practiceAreas below
   languages: string[];
   bio: string; // factual: education, enrolment, courts, areas. No self-praise.
   photo?: string; // e.g. '/advocates/name.jpg' in public/advocates/, square, at least 400px
+};
+
+export type Office = {
+  label: string;
+  labelTa: string;
+  street: string;
+  locality: string;
+  city: string;
+  district: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  geo: { lat: number; lng: number };
+  mapUrl: string;
 };
 
 export type PracticeArea = {
@@ -34,51 +51,80 @@ export type PracticeArea = {
 export const site = {
   // false = the whole site carries noindex and robots.txt blocks crawlers.
   // Flip to true only once every [placeholder] below is real.
-  launched: false,
+  launched: true,
 
-  name: 'Namma Kongu Law Associates',
-  nameTa: 'நம்ம கொங்கு சட்ட ஆலோசகர்கள்',
-  shortName: 'Namma Kongu',
+  // When the office last confirmed the facts below (shown in /llms.txt).
+  factsCheckedOn: '2026-11-26',
+
+  name: 'Kongu Law Associates',
+  nameTa: 'கொங்கு லா அசோசியேட்ஸ்', // [confirm the Tamil name on the letterhead]
+  shortName: 'Kongu Law',
   description:
-    'Namma Kongu Law Associates is a group of advocates in Kongu Nadu, Tamil Nadu, handling civil, property, family, criminal, cheque bounce and commercial matters before the district courts and the Madras High Court.',
+    'Kongu Law Associates is an advocates’ office in Tiruppur, Tamil Nadu, handling civil, property, family, criminal, cheque bounce and commercial matters before the district courts and the Madras High Court.',
   descriptionTa:
-    'நம்ம கொங்கு சட்ட ஆலோசகர்கள் — கொங்கு நாட்டில் சிவில், சொத்து, குடும்ப, குற்றவியல், காசோலை மோசடி மற்றும் வணிக வழக்குகளைக் கையாளும் வழக்கறிஞர்கள் குழு.',
+    'கொங்கு லா அசோசியேட்ஸ் — திருப்பூரில் சிவில், சொத்து, குடும்ப, குற்றவியல், காசோலை மோசடி மற்றும் வணிக வழக்குகளைக் கையாளும் வழக்கறிஞர் அலுவலகம்.',
 
-  phone: '+91 00000 00000', // [replace]
-  whatsapp: '910000000000', // [replace] digits only, with country code
-  email: 'contact@nammakongu.me', // [replace if different]
+  // One-line summary of the work, used in the home page hero.
+  practiceLine: 'Property, family, criminal, cheque bounce, commercial and consumer matters',
+  practiceLineTa: 'சொத்து, குடும்ப, குற்றவியல், காசோலை, வணிக மற்றும் நுகர்வோர் வழக்குகள்',
 
+  phone: '+91 98422 02114',
+  whatsapp: '919842202114', // digits only, with country code
+  email: 'contact@nammakongu.me', // forwarded to the advocate's own inbox
+
+  // Main office. Spelling follows the letterhead ("Thenampalayam").
+  officeLabel: 'Tiruppur office',
+  officeLabelTa: 'திருப்பூர் அலுவலகம்',
   address: {
-    street: '[Door no, street]',
-    locality: '[Area]',
-    city: '[City]',
-    district: '[District]',
+    street: 'No. 2-C, DRG Apartments, Kamaraj Road Cross Street',
+    locality: 'Thenampalayam',
+    city: 'Tiruppur',
+    district: 'Tiruppur',
     state: 'Tamil Nadu',
-    postalCode: '[PIN]',
+    postalCode: '641604',
     country: 'IN',
   },
-  // [replace] decimal coordinates of the office, used by search engines and maps
-  geo: { lat: 11.0168, lng: 76.9558 },
-  mapUrl: 'https://maps.google.com/?q=[office+address]', // [replace]
+  // Decimal coordinates of the office, used by search engines and maps.
+  // Exact pin of the office's Google Maps link (DRG Apartments).
+  geo: { lat: 11.0867471, lng: 77.3474544 },
+  mapUrl: 'https://maps.app.goo.gl/NdvAjSwT9XjrDYcs7',
+
+  // Other places of practice, shown beside the main office.
+  otherOffices: [
+    {
+      label: 'Chennai chamber, Madras High Court',
+      labelTa: 'சென்னை உயர் நீதிமன்ற அலுவலகம்',
+      street: 'Chamber No. 183, New Additional Law Chambers, High Court Buildings',
+      locality: "Madras High Court Campus, Parry's Corner, George Town",
+      city: 'Chennai',
+      district: 'Chennai',
+      state: 'Tamil Nadu',
+      postalCode: '600104',
+      country: 'IN',
+      // Exact pin of the Madras High Court from the office's Google Maps link.
+      geo: { lat: 13.0856293, lng: 80.2882667 },
+      mapUrl: 'https://maps.app.goo.gl/4uyeym3q71QtquGu7',
+    },
+  ] as Office[],
 
   hours: [
-    { days: 'Monday to Saturday', daysTa: 'திங்கள் முதல் சனி வரை', opens: '10:00', closes: '19:00' },
+    { days: 'Monday to Sunday', daysTa: 'திங்கள் முதல் ஞாயிறு வரை', opens: '09:00', closes: '21:00' },
   ],
   hoursSchema: [
     {
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      opens: '10:00',
-      closes: '19:00',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '09:00',
+      closes: '21:00',
     },
   ],
 
   // Towns and courts the associates regularly appear in. Keep this factual.
-  areaServed: ['Coimbatore', 'Tiruppur', 'Erode', 'Salem', 'Namakkal', 'Karur'],
+  areaServed: ['Tiruppur', 'Coimbatore', 'Erode', 'Salem', 'Namakkal', 'Karur'],
   courts: [
     'Madras High Court',
-    '[Principal District Court, City]',
-    '[Family Court, City]',
-    '[Judicial Magistrate Courts, City]',
+    '[Principal District Court, Tiruppur]',
+    '[Family Court, Tiruppur]',
+    '[Judicial Magistrate Courts, Tiruppur]',
   ],
 
   // Public profiles that confirm who the firm is (Google Business Profile,
@@ -183,43 +229,20 @@ export const practiceAreas: PracticeArea[] = [
 // them as-is until replaced.
 export const advocates: Advocate[] = [
   {
-    slug: 'advocate-one',
-    name: '[Advocate name]',
-    nameTa: '[வழக்கறிஞர் பெயர்]',
+    slug: 'p-kalimuthu',
+    name: 'P. Kalimuthu',
+    nameTa: '[initial]. காளிமுத்து',
     role: 'Founding advocate',
-    enrolment: '[Enrolment no.]',
-    enrolledYear: '[Year]',
-    qualifications: ['[B.A., B.L.]'],
-    courts: ['[Principal District Court, City]', 'Madras High Court'],
-    practiceAreas: ['civil-and-property', 'cheque-bounce-and-recovery'],
+    enrolment: '989/1992',
+    enrolledYear: '1992', // practising since 1992
+    qualifications: ['B.L.'],
+    college: 'The Central Law College, Salem', // 1987–1992
+    memberships: ['[Tiruppur Bar Association]', "[Madras High Court Advocates' Association]"],
+    courts: ['[Principal District Court, Tiruppur]', 'Madras High Court'],
+    // [confirm] all six areas while he is the only advocate
+    practiceAreas: ['civil-and-property', 'family-and-matrimonial', 'criminal', 'cheque-bounce-and-recovery', 'commercial-and-contracts', 'consumer'],
     languages: ['Tamil', 'English'],
-    bio: '[Factual profile: law college and year, enrolment with the Bar Council of Tamil Nadu and Puducherry, courts regularly appeared in, areas of practice.]',
-  },
-  {
-    slug: 'advocate-two',
-    name: '[Advocate name]',
-    nameTa: '[வழக்கறிஞர் பெயர்]',
-    role: 'Advocate',
-    enrolment: '[Enrolment no.]',
-    enrolledYear: '[Year]',
-    qualifications: ['[B.A., LL.B. (Hons.)]'],
-    courts: ['[Family Court, City]'],
-    practiceAreas: ['family-and-matrimonial', 'consumer'],
-    languages: ['Tamil', 'English'],
-    bio: '[Factual profile.]',
-  },
-  {
-    slug: 'advocate-three',
-    name: '[Advocate name]',
-    nameTa: '[வழக்கறிஞர் பெயர்]',
-    role: 'Advocate',
-    enrolment: '[Enrolment no.]',
-    enrolledYear: '[Year]',
-    qualifications: ['[B.Com., LL.B.]'],
-    courts: ['[Judicial Magistrate Courts, City]'],
-    practiceAreas: ['criminal', 'commercial-and-contracts'],
-    languages: ['Tamil', 'English'],
-    bio: '[Factual profile.]',
+    bio: 'P. Kalimuthu studied law at The Central Law College, Salem, from 1987 to 1992 and was enrolled with the Bar Council of Tamil Nadu and Puducherry in 1992 (enrolment 989/1992). He practises from his office in Tiruppur and from his chamber at the Madras High Court in Chennai, in civil and property, family, criminal, cheque bounce, commercial and consumer matters. He works in Tamil and English.',
   },
 ];
 

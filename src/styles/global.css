@@ -1,4 +1,4 @@
-/* Namma Kongu Law Associates: modern professional
+/* Kongu Law Associates: modern professional
    White, ink, one teal accent. One sans family (Instrument Sans) with
    Noto Sans Tamil as its Tamil partner. Teal is reserved for actions/links. */
 
@@ -14,6 +14,7 @@
   --teal-tint: #e7f3f1;
 
   --font: 'Instrument Sans', 'Noto Sans Tamil', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif: 'Noto Serif', 'Noto Serif Tamil', Georgia, 'Times New Roman', serif;
 
   --page: 74rem;
   --measure: 68ch;
@@ -291,6 +292,382 @@ ol {
   .hero {
     grid-template-columns: 1fr;
   }
+}
+
+/* Home: hero (option D, "chambers editorial") */
+.hero2 {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+  align-items: end;
+  padding-block: clamp(2.25rem, 7vw, 5rem) clamp(2rem, 5vw, 3.5rem);
+}
+.hero2-label {
+  margin: 0 0 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.hero2-name {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 8vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.25em;
+  text-wrap: balance;
+}
+.hero2-quals {
+  color: var(--muted);
+  font-weight: 500;
+}
+.hero2-name-ta {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  color: var(--teal);
+  margin: 0 0 0.75rem;
+}
+.hero2-lede {
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  color: var(--ink-2);
+  max-width: 46ch;
+  margin: 1rem 0 1.75rem;
+}
+.hero2-photo,
+.hero2-block {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 34rem;
+  border-radius: 10px;
+}
+.hero2-photo {
+  object-fit: cover;
+}
+.hero2-block {
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  position: relative;
+  overflow: hidden;
+}
+.hero2-block::before {
+  /* fine teal rule frame, like a printed certificate border */
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(43, 179, 166, 0.45);
+  border-radius: 6px;
+  pointer-events: none;
+}
+.hero2-block img {
+  width: 4.5rem;
+  margin-bottom: auto;
+}
+.hero2-block p {
+  margin: 0;
+}
+.hero2-block-year {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 8vw, 5.5rem);
+  font-weight: 600;
+  line-height: 1;
+}
+.hero2-block-note {
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2bb3a6;
+  margin-top: 0.4rem !important;
+}
+.hero2-block-places {
+  margin-top: 1.25rem !important;
+  color: #aab4c2;
+}
+@media (max-width: 52rem) {
+  .hero2 {
+    grid-template-columns: 1fr;
+  }
+  .hero2-photo {
+    aspect-ratio: 4 / 3;
+    max-height: 22rem;
+  }
+  /* On phones the credentials band right below already says "1992". */
+  .hero2-block {
+    display: none;
+  }
+}
+
+/* Tamil script does not take letter-spacing or capitals */
+:lang(ta) .hero2-label,
+:lang(ta) .hero2-block-note,
+:lang(ta) .cred-grid dt,
+:lang(ta) .office-cards h3,
+:lang(ta) .guide-topic {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Hero: Directions button that asks which office */
+.dir-menu {
+  position: relative;
+}
+.dir-menu > summary {
+  list-style: none;
+}
+.dir-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.dir-menu[open] > summary {
+  border-color: var(--ink);
+}
+.dir-menu ul {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 17rem;
+  margin: 0;
+  padding: 0.4rem;
+  list-style: none;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(26, 36, 51, 0.14);
+}
+.dir-menu-head {
+  padding: 0.45rem 0.75rem 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+:lang(ta) .dir-menu-head {
+  letter-spacing: 0;
+  text-transform: none;
+}
+.dir-menu a {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.dir-menu a:hover,
+.dir-menu a:focus-visible {
+  background: var(--teal-tint);
+}
+.dir-menu a strong {
+  display: block;
+  font-weight: 600;
+}
+.dir-menu a span {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+@media (max-width: 26rem) {
+  .dir-menu ul {
+    left: auto;
+    right: 0;
+    min-width: min(17rem, 88vw);
+  }
+}
+
+/* Home: credentials band (Rule 36 schedule facts only) */
+.cred-band {
+  background: var(--ink);
+  color: #fff;
+}
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), 1fr);
+  gap: 1.5rem 2rem;
+  margin: 0 auto;
+  padding-block: clamp(1.5rem, 4vw, 2.25rem);
+}
+.cred-grid dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2bb3a6;
+}
+.cred-value {
+  margin: 0.2rem 0 0;
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2.6vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.cred-note {
+  margin: 0.25rem 0 0;
+  font-size: 0.88rem;
+  color: #aab4c2;
+}
+@media (max-width: 52rem) {
+  .cred-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Home: practice areas, heading beside a numbered list */
+.split-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+}
+.split-head h2 {
+  font-family: var(--serif);
+  margin-bottom: 0.2rem;
+}
+.split-head-ta {
+  font-family: var(--serif);
+  color: var(--teal);
+  margin: 0 0 0.75rem;
+}
+.split-head p {
+  color: var(--muted);
+}
+.more-link {
+  font-weight: 600;
+  text-decoration: none;
+}
+.area-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2.5rem;
+}
+.area-list > li {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 0 0.5rem;
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--line);
+}
+.area-n {
+  font-family: var(--serif);
+  font-weight: 600;
+  color: var(--teal);
+  font-size: 1.05rem;
+}
+.area-list a {
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.area-list a:hover {
+  color: var(--teal);
+  text-decoration: underline;
+}
+.area-ta {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.area-list p {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+@media (max-width: 52rem) {
+  .split-section,
+  .area-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Home: offices */
+.offices-band {
+  border-block: 1px solid var(--line);
+}
+.offices-band h2 {
+  font-family: var(--serif);
+  margin-bottom: 1.25rem;
+}
+.office-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.25rem;
+}
+.office-cards > li {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--teal);
+  border-radius: 8px;
+  padding: 1.25rem 1.4rem;
+}
+.office-cards h3 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.office-cards address {
+  font-style: normal;
+}
+.office-hours {
+  margin: 0.6rem 0 0;
+  font-weight: 600;
+}
+.office-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.office-map:hover {
+  text-decoration: underline;
+}
+
+/* Home: legal guides as an editorial row */
+.guide-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.5rem;
+}
+.guide-row > li {
+  border-top: 2px solid var(--ink);
+  padding-top: 0.75rem;
+}
+.guide-topic {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.guide-row a {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  color: var(--ink);
+  text-decoration: none;
+}
+.guide-row a:hover {
+  color: var(--teal);
+  text-decoration: underline;
 }
 
 /* Credentials strip */

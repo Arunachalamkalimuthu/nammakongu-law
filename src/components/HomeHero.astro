@@ -1,0 +1,99 @@
+---
+// Home page hero: the advocate's name as the headline, a factual line about
+// what he handles and where, one-tap contact, and his portrait. Until a photo
+// exists the portrait space shows a name block instead.
+import Icon from './Icon.astro';
+import { site, advocates } from '../site.config';
+import { url } from '../lib/url';
+
+interface Props {
+  lang?: 'en' | 'ta';
+}
+const { lang = 'en' } = Astro.props;
+const ta = lang === 'ta';
+const a = advocates[0];
+const tamilName = !a.nameTa.includes('[');
+const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
+const quals = a.qualifications.join(', ');
+
+// Every place of practice, for the Directions menu.
+const offices = [
+  {
+    label: ta ? site.officeLabelTa : site.officeLabel,
+    where: `${site.address.locality}, ${site.address.city}`,
+    mapUrl: site.mapUrl,
+  },
+  ...site.otherOffices.map((o) => ({
+    label: ta ? o.labelTa : o.label,
+    where: `${o.city} ${o.postalCode}`,
+    mapUrl: o.mapUrl,
+  })),
+];
+---
+
+<section class="hero2 wrap" aria-labelledby="hero-name">
+  <div class="hero2-text">
+    <p class="hero2-label">
+      {ta ? 'வழக்கறிஞர் · திருப்பூர் மற்றும் சென்னை உயர் நீதிமன்றம்' : 'Advocate · Tiruppur & Madras High Court'}
+    </p>
+    <h1 id="hero-name" class="hero2-name" lang={ta ? 'en' : undefined}>
+      {a.name}<span class="hero2-quals">, {quals}</span>
+    </h1>
+    {tamilName && <p class="hero2-name-ta" lang="ta">வழக்கறிஞர் {a.nameTa}</p>}
+    <p class="hero2-lede">
+      {
+        ta
+          ? `${site.practiceLineTa}: திருப்பூர் அலுவலகத்திலும் சென்னை உயர் நீதிமன்ற அலுவலகத்திலும். தமிழிலும் ஆங்கிலத்திலும்.`
+          : `${site.practiceLine}, from the ${site.address.city} office and a chamber at the Madras High Court. In Tamil and English.`
+      }
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href={tel}><Icon name="phone" size={18} /> {ta ? 'அழைக்க' : 'Call'} {site.phone.replace('+91 ', '')}</a>
+      <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener"><Icon name="chat" size={18} /> {ta ? 'வாட்ஸ்அப்' : 'WhatsApp'}</a>
+      {
+        offices.length > 1 ? (
+          <details class="dir-menu">
+            <summary class="btn">
+              <Icon name="pin" size={18} /> {ta ? 'வழி' : 'Directions'}
+            </summary>
+            <ul>
+              <li class="dir-menu-head">{ta ? 'எந்த அலுவலகம்?' : 'Which office?'}</li>
+              {offices.map((o) => (
+                <li>
+                  <a href={o.mapUrl} rel="noopener">
+                    <strong>{o.label}</strong>
+                    <span>{o.where}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ) : (
+          <a class="btn" href={site.mapUrl} rel="noopener">
+            <Icon name="pin" size={18} /> {ta ? 'வழி' : 'Directions'}
+          </a>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    a.photo ? (
+      <img
+        class="hero2-photo"
+        src={url(a.photo)}
+        alt={ta ? `வழக்கறிஞர் ${a.name}` : `Adv. ${a.name}`}
+        width="480"
+        height="600"
+        fetchpriority="high"
+      />
+    ) : (
+      <div class="hero2-block" aria-hidden="true">
+        <img src={url('/brand/mark-white.svg')} alt="" width="72" height="70" />
+        <p class="hero2-block-year">{a.enrolledYear}</p>
+        <p class="hero2-block-note">{ta ? 'முதல் வழக்கறிஞர் பணி' : 'Practising since'}</p>
+        <p class="hero2-block-places">{ta ? 'திருப்பூர் · சென்னை' : 'Tiruppur · Chennai'}</p>
+      </div>
+    )
+  }
+</section>

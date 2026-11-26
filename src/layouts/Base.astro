@@ -1,4 +1,5 @@
 ---
+import { hoursText } from '../lib/hours';
 import '../styles/global.css';
 import { site, practiceAreas } from '../site.config';
 import { url, absolute } from '../lib/url';
@@ -67,7 +68,7 @@ const nav = ta
     <meta property="og:image" content={absolute('/og.png', s)} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${site.name}: advocates in Kongu Nadu`} />
+    <meta property="og:image:alt" content={`${site.name}: Adv. P. Kalimuthu, ${site.address.city}`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={absolute('/og.png', s)} />
     <meta name="theme-color" content="#ffffff" />
@@ -79,7 +80,7 @@ const nav = ta
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Noto+Sans+Tamil:wght@400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Noto+Sans+Tamil:wght@400..700&family=Noto+Serif:wght@500..700&family=Noto+Serif+Tamil:wght@500..700&display=swap"
     />
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </head>
@@ -88,14 +89,14 @@ const nav = ta
     {
       noindex && (
         <div class="preview-note" role="note">
-          Preview: advocate names and office details are placeholders until the firm confirms them.
+          Preview: some details (courts, Tamil name) are placeholders until the office confirms them.
         </div>
       )
     }
     <header class="site-header">
       <div class="wrap">
         <a class="brand" href={url(ta ? '/ta/' : '/')}>
-          <img src={url('/brand/logo.svg')} alt={site.name} width="240" height="54" />
+          <img src={url('/brand/logo.svg')} alt={site.name} width="157" height="54" />
         </a>
         <nav class="nav" aria-label={ta ? 'முதன்மை' : 'Main'}>
           {nav.map((n) => <a href={url(n.href)} aria-current={isCurrent(n.href)}>{n.label}</a>)}
@@ -119,13 +120,21 @@ const nav = ta
       <div class="wrap footer-grid">
         <div>
           <a class="brand" href={url(ta ? '/ta/' : '/')}>
-            <img src={url('/brand/logo-white.svg')} alt={site.name} width="240" height="54" loading="lazy" />
+            <img src={url('/brand/logo-white.svg')} alt={site.name} width="157" height="54" loading="lazy" />
           </a>
           <address>
             {site.address.street}, {site.address.locality}<br />
             {site.address.city}, {site.address.district} District<br />
             {site.address.state} {site.address.postalCode}
           </address>
+          {
+            site.otherOffices.map((o) => (
+              <address>
+                {o.street}, {o.locality}<br />
+                {o.city} {o.postalCode}
+              </address>
+            ))
+          }
         </div>
         <div>
           <h2>{ta ? 'தொடர்புக்கு' : 'Contact'}</h2>
@@ -133,7 +142,7 @@ const nav = ta
             <li><a href={tel}>{site.phone}</a></li>
             <li><a href={`https://wa.me/${site.whatsapp}`} rel="noopener">WhatsApp</a></li>
             <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-            {site.hours.map((h) => <li>{ta ? h.daysTa : h.days}, {h.opens}–{h.closes}</li>)}
+            {site.hours.map((h) => <li>{hoursText(h, ta)}</li>)}
           </ul>
         </div>
         <div>
@@ -173,7 +182,7 @@ const nav = ta
 
     <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
       <div class="gate-box">
-        <img class="brand" src={url('/brand/logo.svg')} alt="" width="178" height="40" />
+        <img class="brand" src={url('/brand/logo.svg')} alt="" width="116" height="40" />
         <h2 id="gate-title">{ta ? 'பொறுப்புத் துறப்பு' : 'Before you continue'}</h2>
         {
           ta ? (

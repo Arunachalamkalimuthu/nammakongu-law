@@ -1,6 +1,6 @@
-# Namma Kongu Law Associates — nammakongu.me
+# Kongu Law Associates — nammakongu.me
 
-Static website for a group of advocates in Kongu Nadu, Tamil Nadu. Built with
+Static website for Kongu Law Associates, an advocates’ office in Tiruppur, Tamil Nadu. Built with
 [Astro](https://astro.build), deployed to GitHub Pages on every push to `main`.
 
 ## Editing

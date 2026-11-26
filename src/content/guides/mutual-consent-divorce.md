@@ -3,7 +3,7 @@ title: 'Divorce by mutual consent in Tamil Nadu: process, timeline and documents
 description: 'How mutual consent divorce works under Section 13B of the Hindu Marriage Act: the one-year separation rule, the first and second motion, waiving the six-month wait, and which family court to approach.'
 answer: 'Under Section 13B of the Hindu Marriage Act, 1955, a husband and wife who have lived separately for at least one year can jointly petition the family court for divorce. The court hears the second motion between six and eighteen months after the petition is filed, though the Supreme Court has held that the six-month wait can be waived in suitable cases.'
 practiceArea: 'family-and-matrimonial'
-reviewer: 'advocate-two'
+reviewer: 'p-kalimuthu'
 published: 2026-11-21
 updated: 2026-11-21
 faq:

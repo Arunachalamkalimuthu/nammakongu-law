@@ -3,6 +3,7 @@
 // handle" without guessing from prose.
 import { site, practiceAreas, advocates, practiceBySlug, type Advocate } from '../site.config';
 import { absolute } from './url';
+import { real } from './real';
 
 type Site = URL | undefined;
 
@@ -35,6 +36,25 @@ export function firmSchema(s: Site) {
       '@type': 'OpeningHoursSpecification',
       ...h,
     })),
+    ...(site.otherOffices.length
+      ? {
+          department: site.otherOffices.map((o) => ({
+            '@type': 'LegalService',
+            name: `${site.name}, ${o.label}`,
+            telephone: site.phone,
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: `${o.street}, ${o.locality}`,
+              addressLocality: o.city,
+              addressRegion: o.state,
+              postalCode: o.postalCode,
+              addressCountry: o.country,
+            },
+            geo: { '@type': 'GeoCoordinates', latitude: o.geo.lat, longitude: o.geo.lng },
+            hasMap: o.mapUrl,
+          })),
+        }
+      : {}),
     areaServed: site.areaServed.map((name) => ({ '@type': 'City', name })),
     knowsLanguage: ['ta', 'en'],
     knowsAbout: practiceAreas.map((p) => p.name),
@@ -61,11 +81,12 @@ export function personSchema(a: Advocate, s: Site) {
     '@type': 'Person',
     '@id': advocateId(a, s),
     name: a.name,
-    alternateName: a.nameTa,
+    ...(real(a.nameTa) ? { alternateName: a.nameTa } : {}),
     jobTitle: a.role === 'Advocate' ? 'Advocate' : `${a.role}, Advocate`,
     url: absolute(`/advocates/${a.slug}/`, s),
     worksFor: { '@id': firmId(s) },
     knowsLanguage: a.languages,
+    ...(a.college ? { alumniOf: { '@type': 'CollegeOrUniversity', name: a.college } } : {}),
     knowsAbout: a.practiceAreas.map((slug) => practiceBySlug(slug)?.name).filter(Boolean),
     hasCredential: [
       {
@@ -81,6 +102,7 @@ export function personSchema(a: Advocate, s: Site) {
         '@type': 'EducationalOccupationalCredential',
         credentialCategory: 'degree',
         name: q,
+        ...(a.college ? { recognizedBy: { '@type': 'CollegeOrUniversity', name: a.college } } : {}),
       })),
     ],
   };

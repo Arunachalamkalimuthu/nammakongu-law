@@ -1,10 +1,10 @@
-# Namma Kongu Law Associates — brand
+# Kongu Law Associates — brand
 
 ## Logo
 
 The mark is an **N built from two court columns under a pediment**: the
 roof is teal, the columns, beam and base are ink. The wordmark is
-"Namma Kongu" in Instrument Sans SemiBold, with "Law Associates" below a
+"Kongu" in Instrument Sans SemiBold, with "Law Associates" below a
 short teal rule. All lettering is converted to outlines, so the files do not
 need the font installed.
 

@@ -1,4 +1,6 @@
 ---
+import { real } from '../../lib/real';
+import { initials } from '../../lib/initials';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
@@ -22,7 +24,7 @@ const crumbs = [
 
 <Base
   title={`${a.name}, ${a.role}`}
-  description={`${a.name}, ${a.role.toLowerCase()} at ${site.name}. Enrolment ${a.enrolment}. ${a.qualifications.join(', ')}.`}
+  description={`${a.name}, ${a.role.toLowerCase()} at ${site.name}. Enrolment ${a.enrolment}. ${a.qualifications.join(', ').replace(/\.$/, '')}.`}
   path={path}
   schema={[breadcrumbSchema(crumbs, Astro.site), personSchema(a, Astro.site)]}
 >
@@ -30,10 +32,10 @@ const crumbs = [
   <article class="wrap">
     <header class="page-head">
       <span class="avatar" style="width:6rem;height:6rem;font-size:1.6rem;margin-bottom:1.25rem" aria-hidden="true">
-        {a.photo ? <img src={url(a.photo)} alt="" width="96" height="96" /> : 'NK'}
+        {a.photo ? <img src={url(a.photo)} alt="" width="96" height="96" /> : initials(a.name)}
       </span>
       <h1>{a.name}</h1>
-      <p class="ta-name" lang="ta">{a.nameTa}</p>
+      {real(a.nameTa) && <p class="ta-name" lang="ta">{a.nameTa}</p>}
       <p>{a.role}</p>
     </header>
     <dl class="facts">
@@ -42,7 +44,7 @@ const crumbs = [
       <dt>Qualifications</dt>
       <dd>{a.qualifications.join(', ')}</dd>
       <dt>Courts</dt>
-      <dd>{a.courts.join(', ')}</dd>
+      <dd>{a.courts.filter(real).join(', ')}</dd>
       <dt>Practice areas</dt>
       <dd>
         {
