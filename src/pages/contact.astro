@@ -1,4 +1,5 @@
 ---
+import { hoursText } from '../lib/hours';
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import Icon from '../components/Icon.astro';
@@ -63,7 +64,7 @@ const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
       }
       <li>
         <span class="ic"><Icon name="clock" size={20} /></span>
-        <span><span class="label">Hours ({site.address.city})</span>{site.hours.map((h) => `${h.days}, ${h.opens}–${h.closes}`).join('; ')}</span>
+        <span><span class="label">Hours ({site.address.city})</span>{site.hours.map((h) => hoursText(h)).join('; ')}</span>
       </li>
       <li>
         <span class="ic"><Icon name="language" size={20} /></span>

@@ -51,6 +51,9 @@ export const site = {
   // Flip to true only once every [placeholder] below is real.
   launched: false,
 
+  // When the office last confirmed the facts below (shown in /llms.txt).
+  factsCheckedOn: '2026-11-26',
+
   name: 'Kongu Law Associates',
   nameTa: 'கொங்கு லா அசோசியேட்ஸ்', // [confirm the Tamil name on the letterhead]
   shortName: 'Kongu Law',

@@ -2,6 +2,7 @@
 // Home page header in the style of the firm's printed letterhead: who, where,
 // when, and one-tap Call / WhatsApp / Directions. Facts come from site.config.
 import Icon from './Icon.astro';
+import { hoursText } from '../lib/hours';
 import { site, advocates } from '../site.config';
 
 interface Props {
@@ -17,18 +18,7 @@ const a = site.address;
 const h = site.hours[0];
 const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
 
-// '09:00' -> '9 AM' / 'காலை 9'
-const hour = (t: string) => {
-  const [hh, mm] = t.split(':').map(Number);
-  const h12 = hh % 12 || 12;
-  const m = mm ? `.${String(mm).padStart(2, '0')}` : '';
-  if (!ta) return `${h12}${m} ${hh < 12 ? 'AM' : 'PM'}`;
-  const part = hh < 12 ? 'காலை' : hh < 16 ? 'மதியம்' : hh < 19 ? 'மாலை' : 'இரவு';
-  return `${part} ${h12}${m}`;
-};
-const hours = ta
-  ? `${h.daysTa}, ${hour(h.opens)} முதல் ${hour(h.closes)} வரை`
-  : `${h.days}, ${hour(h.opens)} to ${hour(h.closes)}`;
+const hours = hoursText(h, ta);
 const pin = (p: string) => p.replace(/^(\d{3})(\d{3})$/, '$1\u00a0$2');
 
 // Main office first (with its hours), then the other places of practice.
