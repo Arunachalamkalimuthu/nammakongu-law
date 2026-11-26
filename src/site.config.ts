@@ -60,7 +60,7 @@ export const site = {
 
   phone: '+91 98422 02114',
   whatsapp: '919842202114', // digits only, with country code
-  email: 'contact@nammakongu.me', // [replace if different]
+  email: 'contact@nammakongu.me', // forwarded to the advocate's own inbox
 
   // Main office. Spelling follows the letterhead ("Thenampalayam").
   officeLabel: 'Tiruppur office',
