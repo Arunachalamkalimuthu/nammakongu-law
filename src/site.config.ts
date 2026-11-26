@@ -224,7 +224,7 @@ export const advocates: Advocate[] = [
     nameTa: '[initial]. காளிமுத்து',
     role: 'Founding advocate',
     enrolment: '[Enrolment no.]',
-    enrolledYear: '[Year]',
+    enrolledYear: '1992', // practising since 1992
     qualifications: ['B.L.'],
     courts: ['[Principal District Court, Tiruppur]', 'Madras High Court'],
     // [confirm] all six areas while he is the only advocate
