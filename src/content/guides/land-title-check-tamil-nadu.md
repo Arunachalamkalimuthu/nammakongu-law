@@ -3,7 +3,7 @@ title: 'Buying land in Tamil Nadu: how to check the title before you pay'
 description: 'A checklist for verifying a plot or house in the Kongu region: Encumbrance Certificate, patta and chitta, FMB sketch, 30 years of parent documents, layout approval and legal heirs.'
 answer: 'Before buying land in Tamil Nadu, check the Encumbrance Certificate on TNREGINET for at least 30 years, confirm the patta is in the seller''s name on the Tamil Nadu e-services portal, match the survey number and boundaries with the FMB sketch, read every parent document in the chain of title, and confirm the plot is in an approved or regularised layout.'
 practiceArea: 'civil-and-property'
-reviewer: 'advocate-one'
+reviewer: 'p-kalimuthu'
 published: 2026-11-21
 updated: 2026-11-21
 faq:

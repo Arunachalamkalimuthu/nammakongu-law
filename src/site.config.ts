@@ -44,36 +44,37 @@ export const site = {
   descriptionTa:
     'நம்ம கொங்கு சட்ட ஆலோசகர்கள் — கொங்கு நாட்டில் சிவில், சொத்து, குடும்ப, குற்றவியல், காசோலை மோசடி மற்றும் வணிக வழக்குகளைக் கையாளும் வழக்கறிஞர்கள் குழு.',
 
-  phone: '+91 00000 00000', // [replace]
-  whatsapp: '910000000000', // [replace] digits only, with country code
+  phone: '+91 98422 02114',
+  whatsapp: '919842202114', // digits only, with country code
   email: 'contact@nammakongu.me', // [replace if different]
 
   address: {
-    street: '[Door no, street]',
-    locality: '[Area]',
-    city: '[City]',
-    district: '[District]',
+    street: 'No. 2-C, DRG Apartments, Kamaraj Road Cross Street',
+    locality: 'Thennampalayam',
+    city: 'Tiruppur',
+    district: 'Tiruppur',
     state: 'Tamil Nadu',
-    postalCode: '[PIN]',
+    postalCode: '641604',
     country: 'IN',
   },
-  // [replace] decimal coordinates of the office, used by search engines and maps
-  geo: { lat: 11.0168, lng: 76.9558 },
-  mapUrl: 'https://maps.google.com/?q=[office+address]', // [replace]
+  // Decimal coordinates of the office, used by search engines and maps.
+  // Taken from the office's Google Maps pin.
+  geo: { lat: 11.075584, lng: 77.335757 },
+  mapUrl: 'https://maps.app.goo.gl/NdvAjSwT9XjrDYcs7',
 
   hours: [
-    { days: 'Monday to Saturday', daysTa: 'திங்கள் முதல் சனி வரை', opens: '10:00', closes: '19:00' },
+    { days: 'Monday to Sunday', daysTa: 'திங்கள் முதல் ஞாயிறு வரை', opens: '09:00', closes: '21:00' },
   ],
   hoursSchema: [
     {
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      opens: '10:00',
-      closes: '19:00',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '09:00',
+      closes: '21:00',
     },
   ],
 
   // Towns and courts the associates regularly appear in. Keep this factual.
-  areaServed: ['Coimbatore', 'Tiruppur', 'Erode', 'Salem', 'Namakkal', 'Karur'],
+  areaServed: ['Tiruppur', 'Coimbatore', 'Erode', 'Salem', 'Namakkal', 'Karur'],
   courts: [
     'Madras High Court',
     '[Principal District Court, City]',
@@ -183,14 +184,14 @@ export const practiceAreas: PracticeArea[] = [
 // them as-is until replaced.
 export const advocates: Advocate[] = [
   {
-    slug: 'advocate-one',
-    name: '[Advocate name]',
-    nameTa: '[வழக்கறிஞர் பெயர்]',
+    slug: 'p-kalimuthu',
+    name: 'P. Kalimuthu',
+    nameTa: '[initial]. காளிமுத்து',
     role: 'Founding advocate',
     enrolment: '[Enrolment no.]',
     enrolledYear: '[Year]',
-    qualifications: ['[B.A., B.L.]'],
-    courts: ['[Principal District Court, City]', 'Madras High Court'],
+    qualifications: ['B.L.'],
+    courts: ['[Principal District Court, Tiruppur]', 'Madras High Court'],
     practiceAreas: ['civil-and-property', 'cheque-bounce-and-recovery'],
     languages: ['Tamil', 'English'],
     bio: '[Factual profile: law college and year, enrolment with the Bar Council of Tamil Nadu and Puducherry, courts regularly appeared in, areas of practice.]',
