@@ -3,7 +3,7 @@ title: 'What to do if the police refuse to register your FIR'
 description: 'Your options under the Bharatiya Nagarik Suraksha Sanhita, 2023 when a police station will not register a complaint: Zero FIR, e-FIR, writing to the Superintendent of Police, and applying to the Magistrate.'
 answer: 'If the police refuse to register an FIR for a cognizable offence, send the complaint in writing to the Superintendent of Police under Section 173(4) of the Bharatiya Nagarik Suraksha Sanhita, 2023. If that does not lead to an investigation, apply to the Judicial Magistrate under Section 175(3), with an affidavit, for an order directing the police to investigate.'
 practiceArea: 'criminal'
-reviewer: 'advocate-three'
+reviewer: 'p-kalimuthu'
 published: 2026-11-21
 updated: 2026-11-21
 faq:
