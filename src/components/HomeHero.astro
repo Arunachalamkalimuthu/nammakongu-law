@@ -15,6 +15,20 @@ const a = advocates[0];
 const tamilName = !a.nameTa.includes('[');
 const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
 const quals = a.qualifications.join(', ');
+
+// Every place of practice, for the Directions menu.
+const offices = [
+  {
+    label: ta ? site.officeLabelTa : site.officeLabel,
+    where: `${site.address.locality}, ${site.address.city}`,
+    mapUrl: site.mapUrl,
+  },
+  ...site.otherOffices.map((o) => ({
+    label: ta ? o.labelTa : o.label,
+    where: `${o.city} ${o.postalCode}`,
+    mapUrl: o.mapUrl,
+  })),
+];
 ---
 
 <section class="hero2 wrap" aria-labelledby="hero-name">
@@ -36,7 +50,30 @@ const quals = a.qualifications.join(', ');
     <div class="actions">
       <a class="btn btn-primary" href={tel}><Icon name="phone" size={18} /> {ta ? 'அழைக்க' : 'Call'} {site.phone.replace('+91 ', '')}</a>
       <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener"><Icon name="chat" size={18} /> {ta ? 'வாட்ஸ்அப்' : 'WhatsApp'}</a>
-      <a class="btn" href={site.mapUrl} rel="noopener"><Icon name="pin" size={18} /> {ta ? 'வழி' : 'Directions'}</a>
+      {
+        offices.length > 1 ? (
+          <details class="dir-menu">
+            <summary class="btn">
+              <Icon name="pin" size={18} /> {ta ? 'வழி' : 'Directions'}
+            </summary>
+            <ul>
+              <li class="dir-menu-head">{ta ? 'எந்த அலுவலகம்?' : 'Which office?'}</li>
+              {offices.map((o) => (
+                <li>
+                  <a href={o.mapUrl} rel="noopener">
+                    <strong>{o.label}</strong>
+                    <span>{o.where}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ) : (
+          <a class="btn" href={site.mapUrl} rel="noopener">
+            <Icon name="pin" size={18} /> {ta ? 'வழி' : 'Directions'}
+          </a>
+        )
+      }
     </div>
   </div>
 
