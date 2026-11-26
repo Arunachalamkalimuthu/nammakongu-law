@@ -1,4 +1,5 @@
 ---
+import { real } from '../lib/real';
 import { initials } from '../lib/initials';
 import { advocates, practiceBySlug } from '../site.config';
 import { url } from '../lib/url';
@@ -19,7 +20,7 @@ const ta = lang === 'ta';
           {a.photo ? <img src={url(a.photo)} alt="" width="68" height="68" loading="lazy" /> : initials(a.name)}
         </span>
         <span>
-          <a href={url(`/advocates/${a.slug}/`)}>{ta ? a.nameTa : a.name}</a>
+          <a href={url(`/advocates/${a.slug}/`)}>{ta && real(a.nameTa) ? a.nameTa : a.name}</a>
           <span class="meta">{a.role}</span>
           <span class="meta">{ta ? 'பதிவு எண்' : 'Enrolment'} {a.enrolment}</span>
           {detail && (

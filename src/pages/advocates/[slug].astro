@@ -1,4 +1,5 @@
 ---
+import { real } from '../../lib/real';
 import { initials } from '../../lib/initials';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
@@ -34,7 +35,7 @@ const crumbs = [
         {a.photo ? <img src={url(a.photo)} alt="" width="96" height="96" /> : initials(a.name)}
       </span>
       <h1>{a.name}</h1>
-      <p class="ta-name" lang="ta">{a.nameTa}</p>
+      {real(a.nameTa) && <p class="ta-name" lang="ta">{a.nameTa}</p>}
       <p>{a.role}</p>
     </header>
     <dl class="facts">
@@ -43,7 +44,7 @@ const crumbs = [
       <dt>Qualifications</dt>
       <dd>{a.qualifications.join(', ')}</dd>
       <dt>Courts</dt>
-      <dd>{a.courts.join(', ')}</dd>
+      <dd>{a.courts.filter(real).join(', ')}</dd>
       <dt>Practice areas</dt>
       <dd>
         {

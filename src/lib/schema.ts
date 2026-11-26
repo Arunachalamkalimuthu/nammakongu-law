@@ -3,6 +3,7 @@
 // handle" without guessing from prose.
 import { site, practiceAreas, advocates, practiceBySlug, type Advocate } from '../site.config';
 import { absolute } from './url';
+import { real } from './real';
 
 type Site = URL | undefined;
 
@@ -80,7 +81,7 @@ export function personSchema(a: Advocate, s: Site) {
     '@type': 'Person',
     '@id': advocateId(a, s),
     name: a.name,
-    alternateName: a.nameTa,
+    ...(real(a.nameTa) ? { alternateName: a.nameTa } : {}),
     jobTitle: a.role === 'Advocate' ? 'Advocate' : `${a.role}, Advocate`,
     url: absolute(`/advocates/${a.slug}/`, s),
     worksFor: { '@id': firmId(s) },

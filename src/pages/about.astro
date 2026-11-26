@@ -1,4 +1,5 @@
 ---
+import { real } from '../lib/real';
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import { site, advocates, practiceAreas } from '../site.config';
@@ -34,7 +35,7 @@ const crumbs = [
       </p>
       <h2>Where we practise</h2>
       <p>Towns: {site.areaServed.join(', ')}.</p>
-      <ul>{site.courts.map((c) => <li>{c}</li>)}</ul>
+      <ul>{site.courts.filter(real).map((c) => <li>{c}</li>)}</ul>
       <h2>Advocates</h2>
       <ul>
         {advocates.map((a) => <li><a href={url(`/advocates/${a.slug}/`)}>{a.name}</a>, {a.role}, enrolment {a.enrolment}</li>)}

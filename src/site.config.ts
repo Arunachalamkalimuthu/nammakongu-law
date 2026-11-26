@@ -51,7 +51,7 @@ export type PracticeArea = {
 export const site = {
   // false = the whole site carries noindex and robots.txt blocks crawlers.
   // Flip to true only once every [placeholder] below is real.
-  launched: false,
+  launched: true,
 
   // When the office last confirmed the facts below (shown in /llms.txt).
   factsCheckedOn: '2026-11-26',
