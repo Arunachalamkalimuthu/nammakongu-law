@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import PracticeGrid from '../../components/PracticeGrid.astro';
 import { breadcrumbSchema } from '../../lib/schema';
+import { site } from '../../site.config';
 
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -12,7 +13,7 @@ const crumbs = [
 
 <Base
   title="Practice areas"
-  description="Civil and property, family, criminal, cheque bounce, commercial and consumer matters handled by Namma Kongu Law Associates in Kongu Nadu, Tamil Nadu."
+  description={`Civil and property, family, criminal, cheque bounce, commercial and consumer matters handled by ${site.name} in Tiruppur, Tamil Nadu.`}
   path="/practice-areas/"
   schema={[breadcrumbSchema(crumbs, Astro.site)]}
 >

@@ -36,13 +36,13 @@ export const site = {
   // Flip to true only once every [placeholder] below is real.
   launched: false,
 
-  name: 'Namma Kongu Law Associates',
-  nameTa: 'நம்ம கொங்கு சட்ட ஆலோசகர்கள்',
-  shortName: 'Namma Kongu',
+  name: 'Kongu Law Associates',
+  nameTa: 'கொங்கு லா அசோசியேட்ஸ்', // [confirm the Tamil name on the letterhead]
+  shortName: 'Kongu Law',
   description:
-    'Namma Kongu Law Associates is a group of advocates in Kongu Nadu, Tamil Nadu, handling civil, property, family, criminal, cheque bounce and commercial matters before the district courts and the Madras High Court.',
+    'Kongu Law Associates is an advocates’ office in Tiruppur, Tamil Nadu, handling civil, property, family, criminal, cheque bounce and commercial matters before the district courts and the Madras High Court.',
   descriptionTa:
-    'நம்ம கொங்கு சட்ட ஆலோசகர்கள் — கொங்கு நாட்டில் சிவில், சொத்து, குடும்ப, குற்றவியல், காசோலை மோசடி மற்றும் வணிக வழக்குகளைக் கையாளும் வழக்கறிஞர்கள் குழு.',
+    'கொங்கு லா அசோசியேட்ஸ் — திருப்பூரில் சிவில், சொத்து, குடும்ப, குற்றவியல், காசோலை மோசடி மற்றும் வணிக வழக்குகளைக் கையாளும் வழக்கறிஞர் அலுவலகம்.',
 
   phone: '+91 98422 02114',
   whatsapp: '919842202114', // digits only, with country code

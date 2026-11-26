@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import People from '../../components/People.astro';
-import { advocates } from '../../site.config';
+import { advocates, site } from '../../site.config';
 import { breadcrumbSchema, personSchema } from '../../lib/schema';
 
 const crumbs = [
@@ -13,7 +13,7 @@ const crumbs = [
 
 <Base
   title="Advocates"
-  description="The advocates of Namma Kongu Law Associates, with their enrolment details, qualifications, courts and areas of practice."
+  description={`The advocates of ${site.name}, with their enrolment details, qualifications, courts and areas of practice.`}
   path="/advocates/"
   schema={[breadcrumbSchema(crumbs, Astro.site), ...advocates.map((a) => personSchema(a, Astro.site))]}
 >
