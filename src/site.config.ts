@@ -223,7 +223,7 @@ export const advocates: Advocate[] = [
     name: 'P. Kalimuthu',
     nameTa: '[initial]. காளிமுத்து',
     role: 'Founding advocate',
-    enrolment: '[Enrolment no.]',
+    enrolment: '989/1992',
     enrolledYear: '1992', // practising since 1992
     qualifications: ['B.L.'],
     courts: ['[Principal District Court, Tiruppur]', 'Madras High Court'],
