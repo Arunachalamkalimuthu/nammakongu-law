@@ -35,6 +35,25 @@ export function firmSchema(s: Site) {
       '@type': 'OpeningHoursSpecification',
       ...h,
     })),
+    ...(site.otherOffices.length
+      ? {
+          department: site.otherOffices.map((o) => ({
+            '@type': 'LegalService',
+            name: `${site.name}, ${o.label}`,
+            telephone: site.phone,
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: `${o.street}, ${o.locality}`,
+              addressLocality: o.city,
+              addressRegion: o.state,
+              postalCode: o.postalCode,
+              addressCountry: o.country,
+            },
+            geo: { '@type': 'GeoCoordinates', latitude: o.geo.lat, longitude: o.geo.lng },
+            hasMap: o.mapUrl,
+          })),
+        }
+      : {}),
     areaServed: site.areaServed.map((name) => ({ '@type': 'City', name })),
     knowsLanguage: ['ta', 'en'],
     knowsAbout: practiceAreas.map((p) => p.name),

@@ -1,4 +1,5 @@
 ---
+import { initials } from '../lib/initials';
 import { advocates, practiceBySlug } from '../site.config';
 import { url } from '../lib/url';
 
@@ -8,17 +9,6 @@ interface Props {
 }
 const { lang = 'en', detail = false } = Astro.props;
 const ta = lang === 'ta';
-// Initials from the real name; placeholders fall back to a neutral mark.
-const initials = (name: string) =>
-  name.startsWith('[')
-    ? 'NK'
-    : name
-        .replace(/^(adv\.?|advocate)\s+/i, '')
-        .split(/\s+/)
-        .filter((w) => /^[A-Za-z]/.test(w))
-        .slice(0, 2)
-        .map((w) => w[0].toUpperCase())
-        .join('');
 ---
 
 <ul class="people">

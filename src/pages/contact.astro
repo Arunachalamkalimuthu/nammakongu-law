@@ -40,15 +40,30 @@ const tel = `tel:${site.phone.replace(/\s+/g, '')}`;
       <li>
         <span class="ic"><Icon name="pin" size={20} /></span>
         <span>
-          <span class="label">Office</span>
+          <span class="label">{site.officeLabel}</span>
           {site.address.street}, {site.address.locality}, {site.address.city}, {site.address.district} District, {site.address.state}{' '}
           {site.address.postalCode}<br />
           <a href={site.mapUrl} rel="noopener">Open in Google Maps</a>
         </span>
       </li>
+      {
+        site.otherOffices.map((o) => (
+          <li>
+            <span class="ic">
+              <Icon name="court" size={20} />
+            </span>
+            <span>
+              <span class="label">{o.label}</span>
+              {o.street}, {o.locality}, {o.city}, {o.state} {o.postalCode}
+              <br />
+              <a href={o.mapUrl} rel="noopener">Open in Google Maps</a>
+            </span>
+          </li>
+        ))
+      }
       <li>
         <span class="ic"><Icon name="clock" size={20} /></span>
-        <span><span class="label">Hours</span>{site.hours.map((h) => `${h.days}, ${h.opens}–${h.closes}`).join('; ')}</span>
+        <span><span class="label">Hours ({site.address.city})</span>{site.hours.map((h) => `${h.days}, ${h.opens}–${h.closes}`).join('; ')}</span>
       </li>
       <li>
         <span class="ic"><Icon name="language" size={20} /></span>

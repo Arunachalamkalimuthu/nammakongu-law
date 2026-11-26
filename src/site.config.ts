@@ -22,6 +22,20 @@ export type Advocate = {
   photo?: string; // e.g. '/advocates/name.jpg' in public/advocates/, square, at least 400px
 };
 
+export type Office = {
+  label: string;
+  labelTa: string;
+  street: string;
+  locality: string;
+  city: string;
+  district: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  geo: { lat: number; lng: number };
+  mapUrl: string;
+};
+
 export type PracticeArea = {
   slug: string;
   name: string;
@@ -48,9 +62,12 @@ export const site = {
   whatsapp: '919842202114', // digits only, with country code
   email: 'contact@nammakongu.me', // [replace if different]
 
+  // Main office. Spelling follows the letterhead ("Thenampalayam").
+  officeLabel: 'Tiruppur office',
+  officeLabelTa: 'திருப்பூர் அலுவலகம்',
   address: {
     street: 'No. 2-C, DRG Apartments, Kamaraj Road Cross Street',
-    locality: 'Thennampalayam',
+    locality: 'Thenampalayam',
     city: 'Tiruppur',
     district: 'Tiruppur',
     state: 'Tamil Nadu',
@@ -58,9 +75,27 @@ export const site = {
     country: 'IN',
   },
   // Decimal coordinates of the office, used by search engines and maps.
-  // Taken from the office's Google Maps pin.
-  geo: { lat: 11.075584, lng: 77.335757 },
+  // Exact pin of the office's Google Maps link (DRG Apartments).
+  geo: { lat: 11.0867471, lng: 77.3474544 },
   mapUrl: 'https://maps.app.goo.gl/NdvAjSwT9XjrDYcs7',
+
+  // Other places of practice, shown beside the main office.
+  otherOffices: [
+    {
+      label: 'Chennai chamber, Madras High Court',
+      labelTa: 'சென்னை உயர் நீதிமன்ற அலுவலகம்',
+      street: 'Chamber No. 183, New Additional Law Chambers, High Court Buildings',
+      locality: "Madras High Court Campus, Parry's Corner, George Town",
+      city: 'Chennai',
+      district: 'Chennai',
+      state: 'Tamil Nadu',
+      postalCode: '600104',
+      country: 'IN',
+      // Exact pin of the Madras High Court from the office's Google Maps link.
+      geo: { lat: 13.0856293, lng: 80.2882667 },
+      mapUrl: 'https://maps.app.goo.gl/4uyeym3q71QtquGu7',
+    },
+  ] as Office[],
 
   hours: [
     { days: 'Monday to Sunday', daysTa: 'திங்கள் முதல் ஞாயிறு வரை', opens: '09:00', closes: '21:00' },
@@ -77,9 +112,9 @@ export const site = {
   areaServed: ['Tiruppur', 'Coimbatore', 'Erode', 'Salem', 'Namakkal', 'Karur'],
   courts: [
     'Madras High Court',
-    '[Principal District Court, City]',
-    '[Family Court, City]',
-    '[Judicial Magistrate Courts, City]',
+    '[Principal District Court, Tiruppur]',
+    '[Family Court, Tiruppur]',
+    '[Judicial Magistrate Courts, Tiruppur]',
   ],
 
   // Public profiles that confirm who the firm is (Google Business Profile,

@@ -29,6 +29,13 @@ const hour = (t: string) => {
 const hours = ta
   ? `${h.daysTa}, ${hour(h.opens)} முதல் ${hour(h.closes)} வரை`
   : `${h.days}, ${hour(h.opens)} to ${hour(h.closes)}`;
+const pin = (p: string) => p.replace(/^(\d{3})(\d{3})$/, '$1\u00a0$2');
+
+// Main office first (with its hours), then the other places of practice.
+const offices = [
+  { ...a, label: site.officeLabel, labelTa: site.officeLabelTa, mapUrl: site.mapUrl, hours },
+  ...site.otherOffices.map((o) => ({ ...o, hours: '' })),
+];
 ---
 
 <section class="letterhead wrap" aria-labelledby="lh-name">
@@ -38,7 +45,7 @@ const hours = ta
       <span class="lh-firm-ta" lang="ta">{site.nameTa}</span>
     </p>
 
-    <h1 id="lh-name" class="lh-name">
+    <h1 id="lh-name" class="lh-name" lang={tamilName || !ta ? undefined : 'en'}>
       {
         tamilName ? (
           <>
@@ -64,19 +71,26 @@ const hours = ta
     <div class="lh-rule" aria-hidden="true"></div>
 
     <div class="lh-details">
-      <address>
-        {a.street},<br />
-        {a.locality}, {a.city}{'\u00a0–\u00a0'}{a.postalCode.replace(/^(\d{3})(\d{3})$/, '$1\u00a0$2')},<br />
-        {a.state}
-      </address>
+      {
+        offices.map((o) => (
+          <div class="lh-office">
+            <h2>{ta ? o.labelTa : o.label}</h2>
+            <address lang="en">
+              {o.street},<br />
+              {o.locality},<br />
+              <span class="nowrap">{o.city} {pin(o.postalCode)}</span>, {o.state}
+            </address>
+            {o.hours && <p class="lh-hours">{o.hours}</p>}
+            <a class="lh-map" href={o.mapUrl} rel="noopener">
+              <Icon name="pin" size={16} /> {ta ? 'வழி காட்டு' : 'Directions'}
+            </a>
+          </div>
+        ))
+      }
       <dl>
         <div>
-          <dt>{ta ? 'தொலைபேசி' : 'Phone'}</dt>
+          <dt>{ta ? 'தொலைபேசி / வாட்ஸ்அப்' : 'Phone / WhatsApp'}</dt>
           <dd><a href={tel}>{site.phone}</a></dd>
-        </div>
-        <div>
-          <dt>{ta ? 'அலுவலக நேரம்' : 'Office hours'}</dt>
-          <dd>{hours}</dd>
         </div>
       </dl>
     </div>
@@ -85,9 +99,6 @@ const hours = ta
       <a class="btn btn-primary" href={tel}><Icon name="phone" size={18} /> {ta ? 'அழைக்க' : 'Call'}</a>
       <a class="btn" href={`https://wa.me/${site.whatsapp}`} rel="noopener">
         <Icon name="chat" size={18} /> {ta ? 'வாட்ஸ்அப்' : 'WhatsApp'}
-      </a>
-      <a class="btn" href={site.mapUrl} rel="noopener">
-        <Icon name="pin" size={18} /> {ta ? 'வழி' : 'Directions'}
       </a>
     </div>
   </div>

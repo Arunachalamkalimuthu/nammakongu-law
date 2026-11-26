@@ -88,14 +88,14 @@ const nav = ta
     {
       noindex && (
         <div class="preview-note" role="note">
-          Preview: some details (enrolment, courts) are placeholders until the office confirms them.
+          Preview: some details (enrolment, courts, Tamil name) are placeholders until the office confirms them.
         </div>
       )
     }
     <header class="site-header">
       <div class="wrap">
         <a class="brand" href={url(ta ? '/ta/' : '/')}>
-          <img src={url('/brand/logo.svg')} alt={site.name} width="240" height="54" />
+          <img src={url('/brand/logo.svg')} alt={site.name} width="157" height="54" />
         </a>
         <nav class="nav" aria-label={ta ? 'முதன்மை' : 'Main'}>
           {nav.map((n) => <a href={url(n.href)} aria-current={isCurrent(n.href)}>{n.label}</a>)}
@@ -119,13 +119,21 @@ const nav = ta
       <div class="wrap footer-grid">
         <div>
           <a class="brand" href={url(ta ? '/ta/' : '/')}>
-            <img src={url('/brand/logo-white.svg')} alt={site.name} width="240" height="54" loading="lazy" />
+            <img src={url('/brand/logo-white.svg')} alt={site.name} width="157" height="54" loading="lazy" />
           </a>
           <address>
             {site.address.street}, {site.address.locality}<br />
             {site.address.city}, {site.address.district} District<br />
             {site.address.state} {site.address.postalCode}
           </address>
+          {
+            site.otherOffices.map((o) => (
+              <address>
+                {o.street}, {o.locality}<br />
+                {o.city} {o.postalCode}
+              </address>
+            ))
+          }
         </div>
         <div>
           <h2>{ta ? 'தொடர்புக்கு' : 'Contact'}</h2>
@@ -173,7 +181,7 @@ const nav = ta
 
     <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
       <div class="gate-box">
-        <img class="brand" src={url('/brand/logo.svg')} alt="" width="178" height="40" />
+        <img class="brand" src={url('/brand/logo.svg')} alt="" width="116" height="40" />
         <h2 id="gate-title">{ta ? 'பொறுப்புத் துறப்பு' : 'Before you continue'}</h2>
         {
           ta ? (
