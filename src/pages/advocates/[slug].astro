@@ -23,7 +23,7 @@ const crumbs = [
 
 <Base
   title={`${a.name}, ${a.role}`}
-  description={`${a.name}, ${a.role.toLowerCase()} at ${site.name}. Enrolment ${a.enrolment}. ${a.qualifications.join(', ')}.`}
+  description={`${a.name}, ${a.role.toLowerCase()} at ${site.name}. Enrolment ${a.enrolment}. ${a.qualifications.join(', ').replace(/\.$/, '')}.`}
   path={path}
   schema={[breadcrumbSchema(crumbs, Astro.site), personSchema(a, Astro.site)]}
 >
